@@ -16,16 +16,16 @@ test('addClass()', function() {
 	div = minimal( document.createElement('div') );
 
 	div.addClass('test');
-	equals( div.getAttr('class'), 'test', 'Make sure there\'s no extra whitespace.' );
+	equal( div.getAttr('class'), 'test', 'Make sure there\'s no extra whitespace.' );
 
 	div.setAttr('class', ' foo');
 	div.addClass('test');
-	equals( div.getAttr('class'), 'foo test', 'Make sure there\'s no extra whitespace.' );
+	equal( div.getAttr('class'), 'foo test', 'Make sure there\'s no extra whitespace.' );
 
 	div.setAttr('class', 'foo');
 	div.addClass('bar baz');
-	equals( div.getAttr('class'), 'foo bar baz', 'Make sure there isn\'t too much trimming.' );
-	
+	equal( div.getAttr('class'), 'foo bar baz', 'Make sure there isn\'t too much trimming.' );
+
 	div.removeClass();
 	div.addClass('foo').addClass('foo');
 	equal( div.getAttr('class'), 'foo', 'Do not add the same class twice in separate calls.' );
@@ -101,17 +101,17 @@ test('addClass(), removeClass(), hasClass()', function() {
 		$elem = minimal( elem );
 
 	$elem.addClass('hi');
-	equals( elem.className, 'hi', 'Check single added class' );
+	equal( elem.className, 'hi', 'Check single added class' );
 
 	$elem.addClass('foo bar');
-	equals( elem.className, 'hi foo bar', 'Check more added classes' );
+	equal( elem.className, 'hi foo bar', 'Check more added classes' );
 
 	$elem.removeClass();
-	equals( elem.className, '', 'Remove all classes' );
+	equal( elem.className, '', 'Remove all classes' );
 
 	$elem.addClass('hi foo bar');
 	$elem.removeClass('foo');
-	equals( elem.className, 'hi bar', 'Check removal of one class' );
+	equal( elem.className, 'hi bar', 'Check removal of one class' );
 
 	ok( $elem.hasClass('hi'), 'Check has1' );
 	ok( $elem.hasClass('bar'), 'Check has2' );

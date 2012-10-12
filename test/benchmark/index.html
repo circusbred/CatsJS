@@ -4,12 +4,9 @@
 	<title>Minimal.js test page | jsPerf</title>
 	<meta charset="utf-8">
 	<meta name="description" content="Tests handling the most basic selectors between qwery, sizzle, and minimal.">
-	<link rel="stylesheet" href="./Benchmark.js/examples/jsperf/main.css">
+	<link rel="stylesheet" href="./benchmark.js/example/jsperf/main.css">
 	<link rel="shortcut icon" href="http://jsperf.com/favicon.ico">
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script src="./Benchmark.js/benchmark.js"></script>
-	<script src="./Benchmark.js/examples/jsperf/ui.js"></script>
-	<script src="./Benchmark.js/plugins/ui.browserscope.js"></script>
 </head>
 <body>
 <article>
@@ -182,8 +179,14 @@
 	&bull; by <a href="http://mathiasbynens.be/" title="Mathias Bynens, front-end web developer">@mathias</a>
 </footer>
 
-<applet code="nano" archive="./Benchmark.js/nano.jar"></applet>
+<applet code="nano" archive="./benchmark.js/nano.jar"></applet>
+<input type="hidden" id="author" />
+<input type="hidden" id="author-email" />
+<input type="hidden" id="author-url" />
 
+<script src="./benchmark.js/benchmark.js"></script>
+<script src="./benchmark.js/example/jsperf/ui.js"></script>
+<script src="./benchmark.js/plugin/ui.browserscope.js"></script>
 <script>
 	ui.add('Qwery .d', function(){Q('.d');})
 		.add('Sizzle .d', function(){S('.d');})

@@ -8,13 +8,6 @@ module.exports = function (grunt) {
 
 	grunt.initConfig({
 		pkg: '<json:package.json>',
-		meta: {
-			banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-				'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-				'<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
-				'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
-		},
 		watch: {
 			files: '<config:jslint.files>',
 			tasks: 'concat min jslint qunit'
@@ -22,8 +15,7 @@ module.exports = function (grunt) {
 		concat: {
 			dist: {
 				src: [
-					'<banner:meta.banner>',
-					'src/intro.js.stub',
+					'<file_template:src/intro.js.stub>',
 					'src/core.js',
 					'src/core.*.js',
 					'src/*.js',

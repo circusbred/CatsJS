@@ -29,10 +29,10 @@ if (support.getSetAttribute) {
 
 		if (rleveltwo.test(name)) {
 			return node.getAttribute(name, 2);
-		} else {
-			ret = node.getAttributeNode(name);
-			return ret && (ret = ret.nodeValue) !== '' ? ret : null;
 		}
+
+		ret = node.getAttributeNode(name);
+		return ret && (ret = ret.nodeValue) !== '' ? ret : null;
 	};
 
 	removeAttribute = function (node, name) {

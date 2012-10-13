@@ -2,11 +2,12 @@
 /*global isString, isObject, hasOwn, push */
 /*jslint browser: true, sloppy: true */
 
-var getCSS, setCSS, cssProps = {
-	// Normalize float
-	'float': support.cssFloat ? 'cssFloat' : 'styleFloat'
-},
-	cssHooks = {};
+var getCSS, setCSS,
+	cssHooks = {},
+	cssProps = {
+		// Normalize float
+		'float': support.cssFloat ? 'cssFloat' : 'styleFloat'
+	};
 
 
 // IE uses filter for opacity
@@ -96,7 +97,7 @@ function css(node, name, value) {
 	}
 
 	if (isObject(name)) {
-		// I am wrapping the body of this for with if (hasOwnProp), silly JSLint
+		// hasOwn = Object.prototype.hasOwnProperty, silly JSLint
 		/*jslint forin: true */
 		for (key in name) {
 			if (hasOwn.call(name, value)) {

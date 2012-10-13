@@ -61,7 +61,7 @@ function attr(node, name, value) {
 	}
 
 	if (isObject(name)) {
-		// I am wrapping the body of this for with if (hasOwnProp), silly JSLint
+		// hasOwn = Object.prototype.hasOwnProperty, silly JSLint
 		/*jslint forin: true */
 		for (key in name) {
 			if (hasOwn.call(name, value)) {

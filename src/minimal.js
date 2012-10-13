@@ -230,64 +230,6 @@
 			return str.replace( rtrim, '' );
 		};
 
-
-	/**
-	 * Classes
-	 * Some class manipulation is based off of Google's code for the html5 presentation (http://code.google.com/p/html5slides/)
-	 */
-	var addClass = minimal.addClass = function( node, classStr ) {
-		classStr = classStr.split( rspaces );
-		var c,
-			cls = ' ' + node.className + ' ',
-			i = 0,
-			len = classStr.length;
-		for ( ; i < len; ++i ) {
-			c = classStr[ i ];
-			if ( c && cls.indexOf(' ' + c + ' ') < 0 ) {
-				cls += c + ' ';
-			}
-		}
-		node.className = trim( cls );
-	};
-
-	var removeClass = minimal.removeClass = function( node, classStr ) {
-		var cls, len, i;
-
-		if ( classStr !== undefined ) {
-			classStr = classStr.split( rspaces );
-			cls = ' ' + node.className + ' ';
-			i = 0;
-			len = classStr.length;
-			for ( ; i < len; ++i ) {
-				cls = cls.replace(' ' + classStr[ i ] + ' ', ' ');
-			}
-			cls = trim( cls );
-		} else {
-			cls = '';
-		}
-		if ( node.className !== cls ) {
-			node.className = cls;
-		}
-	};
-
-	minimal.toggleClass = function( node, classStr ) {
-		var cls = ' ' + node.className + ' ';
-		if ( ~cls.indexOf(' ' + trim( classStr ) + ' ') ) {
-			removeClass( node, classStr );
-		} else {
-			addClass( node, classStr );
-		}
-	};
-
-	var hasClass = minimal.hasClass = function( node, classStr ) {
-		return node && classStr &&
-			!!~(' ' + node.className + ' ').indexOf( ' ' + classStr + ' ' );
-	};
-
-
-
-
-
 	/**
 	 * Window/Document dimensions
 	 */
@@ -372,7 +314,7 @@
 			return minimal[ val ].apply( this, args );
 		};
 	});
-	each('addClass removeClass toggleClass setAttr removeAttr setCSS on off fire'.split(' '), function( val ) {
+	each('on off fire'.split(' '), function( val ) {
 		proto[ val ] = function() {
 			var node, args, i = 0;
 			for ( ; node = this[i]; i++ ) {
@@ -381,24 +323,6 @@
 				minimal[ val ].apply( node, args );
 			}
 			return this;
-		};
-	});
-
-	// If any of the elements have the class, return true
-	proto.hasClass = function( classStr ) {
-		var node, i = 0, ret;
-		for ( ; node = this[i]; i++ ) {
-			if ( hasClass(node, classStr) ) {
-				return true;
-			}
-		}
-		return false;
-	};
-
-	// getAttr/getCSS only return for the first node
-	each([ 'getAttr', 'getCSS' ], function( val ) {
-		proto[ val ] = function( name ) {
-			return minimal[ val ]( this[0], name );
 		};
 	});
 

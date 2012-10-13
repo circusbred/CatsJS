@@ -35,13 +35,14 @@ if (!support.opacity) {
 if (window.getComputedStyle) {
 	getCSS = function (node, name) {
 		name = cssProps[name] || name;
-		var style, ret = cssHooks[name];
+		var ret = cssHooks[name];
+
 		if (ret && hasOwn.call(ret, 'get')) {
 			return ret.get(node, name);
-		} else {
-			ret = window.getComputedStyle(node, null)[name];
-			return !ret ? node.style[name] : ret;
 		}
+
+		ret = window.getComputedStyle(node, null)[name];
+		return !ret ? node.style[name] : ret;
 	};
 } else if (document.documentElement.currentStyle) {
 	getCSS = function (node, name) {
@@ -50,32 +51,33 @@ if (window.getComputedStyle) {
 
 		if (ret && hasOwn.call(ret, 'get')) {
 			return ret.get(node, name);
-		} else {
-			// Credits to jQuery
-			ret = node.currentStyle && node.currentStyle[name];
-
-			// Uses the pixel converter by Dean Edwards
-			// http://erik.eae.net/archives/2007/07/27/18.54.15/#comment-102291
-			if (rnotnumpx.test(ret)) {
-				rsLeft = node.runtimeStyle && node.runtimeStyle[name];
-				style = node.style;
-
-				left = style.left;
-				if (rsLeft) {
-					node.runtimeStyle.left = node.currentStyle.left;
-				}
-				style.left = name === 'fontSize' ? '1em' : (ret || 0);
-				ret = style.pixelLeft + 'px';
-
-				// Revert the changed values
-				style.left = left;
-				if (rsLeft) {
-					node.runtimeStyle.left = rsLeft;
-				}
-			}
-
-			return ret === '' ? 'auto' : !ret ? node.style[name] : ret;
 		}
+
+		// Credits to jQuery
+		ret = node.currentStyle && node.currentStyle[name];
+
+		// Uses the pixel converter by Dean Edwards
+		// http://erik.eae.net/archives/2007/07/27/18.54.15/#comment-102291
+		if (rnotnumpx.test(ret)) {
+			rsLeft = node.runtimeStyle && node.runtimeStyle[name];
+			style = node.style;
+
+			left = style.left;
+			if (rsLeft) {
+				node.runtimeStyle.left = node.currentStyle.left;
+			}
+			style.left = name === 'fontSize' ? '1em' : (ret || 0);
+			ret = style.pixelLeft + 'px';
+
+			// Revert the changed values
+			style.left = left;
+			if (rsLeft) {
+				node.runtimeStyle.left = rsLeft;
+			}
+		}
+
+		return ret === '' ? 'auto' : !ret ? node.style[name] : ret;
+
 	};
 }
 
@@ -90,7 +92,7 @@ setCSS = function (node, name, value) {
 };
 
 function css(node, name, value) {
-	var i, key, nodeType;
+	var key;
 
 	if (isString(name) && value === undefined) {
 		return getCSS(node, name);
@@ -114,6 +116,7 @@ function css(node, name, value) {
 	}
 }
 
+/*jslint unparam: true */
 proto.css = function (name, value) {
 	var node, args, i, length, nodeType, ret;
 
@@ -133,3 +136,4 @@ proto.css = function (name, value) {
 	}
 	return this;
 };
+/*jslint unparam: false */

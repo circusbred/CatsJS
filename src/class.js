@@ -7,24 +7,6 @@
  * Some class manipulation is based off of Google's code for the html5 presentation (http://code.google.com/p/html5slides/)
  */
 
-// TODO expose via minimal.plugin() or something?
-function addToProto(fn, name, returnFirst) {
-	proto[name] = function () {
-		var node, args, i, length, ret;
-		for (i = 0, length = this.length; i < length; i += 1) {
-			node = this[i];
-			args = [node];
-			push.apply(args, arguments);
-			ret = fn.apply(node, args);
-			if (returnFirst) {
-				return ret;
-			}
-		}
-		return this;
-
-	};
-}
-
 function hasClass(node, classStr) {
 	if (node && classStr) {
 		return (' ' + node.className + ' ').indexOf(' ' + trim(classStr) + ' ') !== -1;

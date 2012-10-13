@@ -37,3 +37,5 @@ function each(obj, iterator) {
 
 	return obj;
 }
+
+addToProto(each, 'each');

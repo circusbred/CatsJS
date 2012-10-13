@@ -7,9 +7,37 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-jslint');
 
 	grunt.initConfig({
+		pkg: '<json:package.json>',
+		meta: {
+			banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+				'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+				'<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
+				'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
+		},
 		watch: {
 			files: '<config:jslint.files>',
-			tasks: 'jslint qunit'
+			tasks: 'concat min jslint qunit'
+		},
+		concat: {
+			dist: {
+				src: [
+					'<banner:meta.banner>',
+					'src/intro.js.stub',
+					'src/core.js',
+					'src/core.*.js',
+					'src/*.js',
+					'src/outro.js.stub'
+				],
+				dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.js'
+			}
+		},
+
+		min: {
+			dist: {
+				src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
+				dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.min.js'
+			}
 		},
 
 		qunit: {

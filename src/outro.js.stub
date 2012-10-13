@@ -1,0 +1,5 @@
+
+
+	window.cats = minimal;
+
+})( this, this.document );

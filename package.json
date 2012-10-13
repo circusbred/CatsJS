@@ -1,8 +1,8 @@
 {
-	"name": "minimaljs.grunt",
-	"title": "MinimalJS Fork",
-	"description": "This is a build file n stuff",
-	"version": "0.4.0",
+	"name": "cats",
+	"title": "Cats.JS",
+	"description": "Cats and maybe dogs.",
+	"version": "0.1.0",
 	"homepage": "https://github.com/circusbred/minimal",
 	"author": {
 		"name": "David Sturley",
@@ -19,10 +19,6 @@
 		{
 			"type": "MIT",
 			"url": "https://github.com/cowboy/grunt-jquery-example/blob/master/LICENSE-MIT"
-		},
-		{
-			"type": "GPL",
-			"url": "https://github.com/cowboy/grunt-jquery-example/blob/master/LICENSE-GPL"
 		}
 	],
 	"dependencies": {

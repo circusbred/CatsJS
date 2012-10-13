@@ -7,6 +7,23 @@
  * Some class manipulation is based off of Google's code for the html5 presentation (http://code.google.com/p/html5slides/)
  */
 
+// TODO expose via minimal.plugin() or something?
+function addToProto(fn, name, returnFirst) {
+	proto[name] = function () {
+		var node, args, i, length, ret;
+		for (i = 0, length = this.length; i < length; i += 1) {
+			node = this[i];
+			args = [node];
+			push.apply(args, arguments);
+			ret = fn.apply(node, args);
+			if (returnFirst) {
+				return ret;
+			}
+		}
+		return this;
+
+	};
+}
 
 function hasClass(node, classStr) {
 	if (node && classStr) {
@@ -76,46 +93,7 @@ proto.hasClass = function (classStr) {
 	return false;
 };
 
-proto.addClass = function () {
-	var node, args, i, length;
-	for (i = 0, length = this.length; i < length; i += 1) {
-		node = this[i];
-		args = [node];
-		push.apply(args, arguments);
-		addClass.apply(node, args);
-	}
-	return this;
-};
-
-proto.removeClass = function () {
-	var node, args, i, length;
-	for (i = 0, length = this.length; i < length; i += 1) {
-		node = this[i];
-		args = [node];
-		push.apply(args, arguments);
-		removeClass.apply(node, args);
-	}
-	return this;
-};
-
-proto.toggleClass = function () {
-	var node, args, i, length;
-	for (i = 0, length = this.length; i < length; i += 1) {
-		node = this[i];
-		args = [node];
-		push.apply(args, arguments);
-		toggleClass.apply(node, args);
-	}
-	return this;
-};
-
-proto.replaceClass = function () {
-	var node, args, i, length;
-	for (i = 0, length = this.length; i < length; i += 1) {
-		node = this[i];
-		args = [node];
-		push.apply(args, arguments);
-		replaceClass.apply(node, args);
-	}
-	return this;
-};
+addToProto(addClass, 'addClass');
+addToProto(removeClass, 'removeClass');
+addToProto(toggleClass, 'toggleClass');
+addToProto(replaceClass, 'replaceClass');

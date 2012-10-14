@@ -1,5 +1,5 @@
 /*jslint browser: true */
-/*global toArray, rid, rtagclass */
+/*global toArray, rid, rtagclass, rcomma, push */
 /**
  * A short simple selector engine
  * Never use descendants (although setting context is allowed) and only use id, tag, tag.class, or .class
@@ -13,7 +13,7 @@
 function queryAll(selector, root) {
 	'use strict';
 
-	root = root && (typeof root === 'string' ? queryAll(root)[0] : root.nodeName ? root : root[0]) || document;
+	root = (root && (typeof root === 'string' ? queryAll(root)[0] : root.nodeName ? root : root[0])) || document;
 
 	if (!selector || !root) {
 		return [];
@@ -33,17 +33,22 @@ function queryAll(selector, root) {
 		return toArray(selector);
 	}
 
-	var match, node, ret, m, i, j;
+	var match, node, ret, m, i, l;
 
 	// ID
-	if (match = rid.exec(selector)) {
-		return (node = root.getElementById(match[1])) ? [node] : [];
+	match = rid.exec(selector);
+	if (match) {
+		node = root.getElementById(match[1]);
+		return node ? [node] : [];
 
-		// Tag, Class, and Tag.Class
-	} else if (match = rtagclass.exec(selector)) {
+	}
+	// Tag, Class, and Tag.Class
+	match = rtagclass.exec(selector);
+	if (match) {
 
 		// Tag
-		if (m = match[1]) {
+		m = match[1];
+		if (m) {
 			return toArray(root.getElementsByTagName(m));
 		}
 
@@ -62,28 +67,28 @@ function queryAll(selector, root) {
 		// IE fallback
 		match = root.getElementsByTagName(match[2] || '*');
 		ret = [];
-		j = 0;
 		m = ' ' + m + ' ';
-		for (; node = match[j]; j++) {
-			if (~ (' ' + node.className + ' ').indexOf(m)) {
+		for (i = 0, l = match.length; i < l; i += 1) {
+			node = match[i];
+			if ((' ' + node.className + ' ').indexOf(m) !== -1) {
 				ret.push(node);
 			}
 		}
 		return ret;
 
 		// Multiple selectors
-	} else {
-		ret = [];
-		selector = selector.split(rcomma);
-
-		// No split means selector not supported
-		if (selector.length < 2) {
-			throw 'Invalid selector: ' + selector;
-		}
-
-		for (i = 0; node = selector[i]; i++) {
-			push.apply(ret, queryAll(node, root));
-		}
-		return ret;
 	}
-};
+
+	ret = [];
+	selector = selector.split(rcomma);
+
+	// No split means selector not supported
+	if (selector.length < 2) {
+		throw 'Invalid selector: ' + selector;
+	}
+
+	for (i = 0, l = selector.length; i < l; i += 1) {
+		push.apply(ret, queryAll(selector[i], root));
+	}
+	return ret;
+}

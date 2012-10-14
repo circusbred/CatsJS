@@ -1,5 +1,5 @@
 /*global support, proto, rspaces */
-/*global isString, isObject, hasOwn, push, trim */
+/*global isString, isObject, hasOwn, push, trim, addToProto */
 /*jslint browser: true, sloppy: true */
 
 /**
@@ -22,7 +22,7 @@ function addClass(node, classStr) {
 
 	for (i = 0; i < len; i += 1) {
 		c = classStr[i];
-		if (!hasClass(node, c)) {
+		if (c && cls.indexOf(' ' + c + ' ') < 0) {
 			cls += c + ' ';
 		}
 	}
@@ -66,7 +66,7 @@ function replaceClass(node, oldClass, newClass) {
 }
 // If any of the elements have the class, return true
 proto.hasClass = function (classStr) {
-	var node, length, i;
+	var length, i;
 	for (i = 0, length = this.length; i < length; i += 1) {
 		if (hasClass(this[i], classStr)) {
 			return true;

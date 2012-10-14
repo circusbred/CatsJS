@@ -27,7 +27,5 @@ var t = function( a, b, c ) {
 	deepEqual( query( a ), i[0], c + " with query (" + a + ")" );
 };
 
-(function() {
-	// Run tests in noConflict mode
-	minimal.noConflict();
-})();
+var theLibrary = window.cats || {},
+	version = theLibrary.prototype.version || 'test';

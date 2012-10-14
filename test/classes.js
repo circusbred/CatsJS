@@ -3,7 +3,7 @@ module('classes');
 test('addClass()', function() {
 	expect(8);
 
-	var div = minimal('div');
+	var div = cats('div');
 	div.addClass('test');
 	var pass = true;
 	for ( var i = 0; i < div.length; i++ ) {
@@ -13,44 +13,44 @@ test('addClass()', function() {
 	}
 	ok( pass, 'Add Class' );
 
-	div = minimal( document.createElement('div') );
+	div = cats( document.createElement('div') );
 
 	div.addClass('test');
-	equal( div.getAttr('class'), 'test', 'Make sure there\'s no extra whitespace.' );
+	equal( div.attr('class'), 'test', 'Make sure there\'s no extra whitespace.' );
 
-	div.setAttr('class', ' foo');
+	div.attr('class', ' foo');
 	div.addClass('test');
-	equal( div.getAttr('class'), 'foo test', 'Make sure there\'s no extra whitespace.' );
+	equal( div.attr('class'), 'foo test', 'Make sure there\'s no extra whitespace.' );
 
-	div.setAttr('class', 'foo');
+	div.attr('class', 'foo');
 	div.addClass('bar baz');
-	equal( div.getAttr('class'), 'foo bar baz', 'Make sure there isn\'t too much trimming.' );
+	equal( div.attr('class'), 'foo bar baz', 'Make sure there isn\'t too much trimming.' );
 
 	div.removeClass();
 	div.addClass('foo').addClass('foo');
-	equal( div.getAttr('class'), 'foo', 'Do not add the same class twice in separate calls.' );
+	equal( div.attr('class'), 'foo', 'Do not add the same class twice in separate calls.' );
 
 	div.addClass('fo');
-	equal( div.getAttr('class'), 'foo fo', 'Adding a similar class does not get interrupted.' );
+	equal( div.attr('class'), 'foo fo', 'Adding a similar class does not get interrupted.' );
 	div.removeClass().addClass('wrap2');
 	ok( div.addClass('wrap').hasClass('wrap'), 'Can add similarly named classes');
 
 	div.removeClass();
 	div.addClass('bar bar');
-	equal( div.getAttr('class'), 'bar', 'Do not add the same class twice in the same call.' );
+	equal( div.attr('class'), 'bar', 'Do not add the same class twice in the same call.' );
 });
 
 test('removeClass()', function() {
 	expect(7);
 
-	var $divs = minimal('div');
+	var $divs = cats('div');
 
 	$divs.addClass('test').removeClass('test');
 
 	ok( !$divs.hasClass('test'), 'Remove Class' );
 
 	QUnit.reset();
-	$divs = minimal('div');
+	$divs = cats('div');
 
 	$divs.addClass('test').addClass('foo').addClass('bar');
 	$divs.removeClass('test').removeClass('bar').removeClass('foo');
@@ -60,7 +60,7 @@ test('removeClass()', function() {
 	ok( !$divs.hasClass('foo'), 'Remove multiple classes' );
 
 	QUnit.reset();
-	$divs = minimal('div');
+	$divs = cats('div');
 
 	$divs.first().addClass('test').removeClass('');
 	ok( $divs.first().hasClass('test'), 'Empty string passed to removeClass' );
@@ -68,19 +68,19 @@ test('removeClass()', function() {
 	var div = document.createElement('div');
 	div.className = ' test foo ';
 
-	minimal(div).removeClass('foo');
+	cats(div).removeClass('foo');
 	equal( div.className, 'test', 'Make sure remaining className is trimmed.' );
 
 	div.className = ' test ';
 
-	minimal(div).removeClass('test');
+	cats(div).removeClass('test');
 	equal( div.className, '', 'Make sure there is nothing left after everything is removed.' );
 });
 
 test('toggleClass()', function() {
 	expect(6);
 
-	var e = minimal('#firstp');
+	var e = cats('#firstp');
 	ok( !e.hasClass('test'), 'Assert class not present' );
 	e.toggleClass('test');
 	ok( e.hasClass('test'), 'Assert class present' );
@@ -98,7 +98,7 @@ test('toggleClass()', function() {
 test('addClass(), removeClass(), hasClass()', function() {
 	expect(13);
 	var elem = document.createElement('p'),
-		$elem = minimal( elem );
+		$elem = cats( elem );
 
 	$elem.addClass('hi');
 	equal( elem.className, 'hi', 'Check single added class' );

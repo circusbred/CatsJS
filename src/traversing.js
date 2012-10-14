@@ -1,10 +1,9 @@
-/**
- * Traversing
- */
-proto.slice = function (start, end) {
+/*global proto, Library, slice, toArray, queryAll, rid, indexOf */
+/*jslint browser: true */
+proto.slice = function () {
 	'use strict';
 
-	return new minimal(slice.apply(toArray(this), arguments));
+	return new Library(slice.apply(toArray(this), arguments));
 };
 proto.first = function () {
 	'use strict';
@@ -14,32 +13,33 @@ proto.first = function () {
 proto.eq = function (index) {
 	'use strict';
 
-	return ~ (index = +index) ? this.slice(index, index + 1) : this.slice(index);
+	return (index = +index) !== -1 ? this.slice(index, index + 1) : this.slice(index);
 };
 proto.find = function (selector) {
 	'use strict';
 
-	var node, sel, j, el, i = 0,
+	var sel, j, el, i, l, l2,
 		ret = [];
-	for (; node = this[i]; i++) {
-		sel = queryAll(selector, rid.test(selector) ? document : node);
-		for (j = 0; el = sel[j]; j++) {
-			if (!~indexOf(ret, el)) {
+	for (i = 0, l = this.length; i < l; i += 1) {
+		sel = queryAll(selector, rid.test(selector) ? document : this[i]);
+		for (j = 0, l2 = sel.length; j < l2; j += 1) {
+			el = sel[j];
+			if (indexOf(ret, el) === -1) {
 				ret.push(el);
 			}
 		}
 	}
-	return new minimal(ret);
+	return new Library(ret);
 };
 proto.filter = function (fn) {
 	'use strict';
 
-	var node, ret = [],
-		i = 0;
-	for (; node = this[i]; i++) {
+	var node, i, l, ret = [];
+	for (i = 0, l = this.length; i < l; i += 1) {
+		node = this[i];
 		if (fn.call(node, node, i)) {
 			ret.push(node);
 		}
 	}
-	return new minimal(ret);
+	return new Library(ret);
 };

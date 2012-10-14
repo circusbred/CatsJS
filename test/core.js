@@ -1,158 +1,161 @@
-module("core");
+/*global QUnit, module, test, equal, strictEqual, theLibrary, expect, ok, cats, deepEqual, q */
+/*jslint browser: true, vars:true */
+(function () {
+	'use strict';
 
-test("noConflict()", function() {
-	expect(5);
+	module("core");
 
-	var $$ = minimal;
-	var q = query;
-	var qa = queryAll;
+	test("noConflict()", 1, function () {
 
-	notEqual( window.$, window.minimal, 'Tests are running in noConflict mode' );
+		var $$ = window.cats;
+		cats.noConflict(true);
+		equal(window.cats, undefined, 'noConflict deep removes theLibrary from window');
 
-	minimal.noConflict( true );
-	equal( query, undefined, 'noConflict called to remove query from global object' );
-	equal( queryAll, undefined, 'noConflict called to remove queryAll from global object' );
-
-	var m = minimal.noConflict( true, true );
-	equal( minimal, undefined, 'noConflict deep removes minimal from window' );
-	equal( m, $$, 'noConflict returns minimal' );
-
-	minimal = $$;
-	query = q;
-	queryAll = qa;
-});
-
-test("Constructor", function() {
-	expect(10);
-
-	// Constructor behavior
-	equal( minimal().length, 0, 'minimal() === minimal([])' );
-	equal( minimal([]).length, 0, 'minimal([])' );
-	equal( minimal(undefined).length, 0, 'minimal(undefined) === minimal([])' );
-	equal( minimal(null).length, 0, 'minimal(null) === minimal([])' );
-	equal( minimal('').length, 0, 'minimal("") === minimal([])' );
-	
-	ok( minimal('#foo') instanceof minimal, 'Self instantiated' );
-	equal( minimal('div.list').length, 1, 'Length property' );
-	equal( minimal('.list').length, 4, 'Multiple objects' );
-	equal( minimal( document.getElementById('foo') ).length, 1, 'Minimal takes elements' );
-	equal( minimal(document).length, 1, 'Minimal object of a document' );
-
-});
-
-test("minimal.trim()", function() {
-	expect(4);
-
-	var nbsp = String.fromCharCode(160);
-
-	equal( minimal.trim('hello  '), 'hello', 'trailing space' );
-	equal( minimal.trim('  hello'), 'hello', 'leading space' );
-	equal( minimal.trim('  hello   '), 'hello', 'space on both sides' );
-	equal( minimal.trim('  ' + nbsp + 'hello  ' + nbsp + ' '), 'hello', '&nbsp;' );
-
-});
-
-test("toArray()", function() {
-	expect(8);
-	deepEqual( minimal('p', '#container').toArray(), q('firstp', 'sndp', 'en', 'sap', 'lastp'), 'Convert minimal object to an Array' )
-	ok( minimal.toArray( document.getElementsByTagName('div') ) instanceof Array, 'Convert nodelist to array' );
-
-	equal( minimal.toArray( minimal('head') )[0].nodeName.toUpperCase(), 'HEAD', 'Pass toArray a minimal object' );
-
-	equal( minimal.toArray( document.getElementsByTagName('ul') ).slice( 0, 1 )[ 0 ].id, 'unorderedList', 'Pass toArray a nodelist' );
-
-	equal( (function(){ return minimal.toArray(arguments); })(1,2).join(''), '12', 'Pass toArray an arguments array' );
-
-	equal( minimal.toArray([1,2,3]).join(''), '123', 'Pass toArray a real array' );
-
-	equal( minimal.toArray({ length: 2, 0: 'a', 1: 'b' }).join(''), 'ab', 'Pass toArray an array like map (with length)' );
-
-	ok( !!minimal.toArray( document.documentElement.childNodes ).slice(0,1)[0].nodeName, 'Pass toArray a childNodes array' );
-});
-
-test("indexOf()", function() {
-	
-	expect(35);
-
-	var selections = {
-		p:   q('firstp', 'en', 'sap', 'lastp'),
-		li:  q('listOne', 'listTwo'),
-		div: q('container', 'parent', 'child', 'foo'),
-		a:   q('mark', 'link1', 'simon'),
-		empty: []
-	},
-	tests = {
-		p:    { elem: query('#en'),      index: 1 },
-		li:   { elem: query('#listTwo'), index: 1 },
-		div:  { elem: query('#child'),   index: 2 },
-		a:    { elem: query('#simon'),  index: 2 }
-	},
-	falseTests = {
-		p:  query('#listOne'),
-		li: query('#foo'),
-		empty: ''
-	};
-
-	minimal.each( tests, function( obj, key ) {
-		equal( minimal.indexOf( selections[ key ], obj.elem ), obj.index, obj.elem + ' is in the array of selections of its tag' );
-		equal( minimal(selections[ key ]).indexOf( obj.elem ), obj.index, obj.elem + ' is in the array of selections of its tag' );
-
-		// Third arg
-		equal( !!~minimal.indexOf( selections[ key ], obj.elem, 5 ), false, obj.elem + ' is NOT in the array of selections given a starting index greater than its position' );
-		equal( !!~minimal.indexOf( selections[ key ], obj.elem, 1 ), true, obj.elem + ' is in the array of selections given a starting index less than or equal to its position' );
-		equal( !!~minimal.indexOf( selections[ key ], obj.elem, -3 ), true, obj.elem + ' is in the array of selections given with a negative fromIndex' );
-
-		equal( !!~minimal(selections[ key ]).indexOf( obj.elem, 5 ), false, obj.elem + ' is NOT in the array of selections given a starting index greater than its position' );
-		equal( !!~minimal(selections[ key ]).indexOf( obj.elem, 1 ), true, obj.elem + ' is in the array of selections given a starting index less than or equal to its position' );
-		equal( !!~minimal(selections[ key ]).indexOf( obj.elem, -3 ), true, obj.elem + ' is in the array of selections given with a negative fromIndex' );
+		window.cats = $$;
 	});
 
-	minimal.each( falseTests, function( elem, key ) {
-		equal( !!~minimal.indexOf( selections[ key ], elem ), false, 'elem is NOT in the array of selections' );
+	test("Constructor", 10, function () {
+
+		// Constructor behavior
+		equal(theLibrary().length, 0, 'theLibrary() === theLibrary([])');
+		equal(theLibrary([]).length, 0, 'theLibrary([])');
+		equal(theLibrary(undefined).length, 0, 'theLibrary(undefined) === theLibrary([])');
+		equal(theLibrary(null).length, 0, 'theLibrary(null) === theLibrary([])');
+		equal(theLibrary('').length, 0, 'theLibrary("") === theLibrary([])');
+
+		ok(theLibrary('#foo') instanceof theLibrary, 'Self instantiated');
+		equal(theLibrary('div.list').length, 1, 'Length property');
+		equal(theLibrary('.list').length, 4, 'Multiple objects');
+		equal(theLibrary(document.getElementById('foo')).length, 1, 'Minimal takes elements');
+		equal(theLibrary(document).length, 1, 'Minimal object of a document');
+
 	});
 
-});
+	test("theLibrary.trim()", 4, function () {
 
-// Test both each and forEach
-var testEach = function() {
-	minimal.each.apply( null, arguments );
-	minimal.forEach.apply( null, arguments );
-};
+		var nbsp = String.fromCharCode(160);
 
-test('minimal.each', function() {
-	expect(19);
+		equal(theLibrary.trim('hello  '), 'hello', 'trailing space');
+		equal(theLibrary.trim('  hello'), 'hello', 'leading space');
+		equal(theLibrary.trim('  hello   '), 'hello', 'space on both sides');
+		equal(theLibrary.trim('  ' + nbsp + 'hello  ' + nbsp + ' '), 'hello', '&nbsp;');
 
-	testEach([ 0, 1, 2 ], function( n, i ) {
-		equal( i, n, 'Check array iteration' );
 	});
 
-	testEach([ 5, 6, 7 ], function( n, i ) {
-		equal( n - 5, i, 'Check array iteration' );
+	test("toArray()", 8, function () {
+		deepEqual(theLibrary('p', '#container').toArray(), q('firstp', 'sndp', 'en', 'sap', 'lastp'), 'Convert theLibrary object to an Array');
+		ok(theLibrary.toArray(document.getElementsByTagName('div')) instanceof Array, 'Convert nodelist to array');
+
+		equal(theLibrary.toArray(theLibrary('head'))[0].nodeName.toUpperCase(), 'HEAD', 'Pass toArray a theLibrary object');
+
+		equal(theLibrary.toArray(document.getElementsByTagName('ul')).slice(0, 1)[0].id, 'unorderedList', 'Pass toArray a nodelist');
+
+		equal((function () {
+			return theLibrary.toArray(arguments);
+		}(1, 2)).join(''), '12', 'Pass toArray an arguments array');
+
+		equal(theLibrary.toArray([1, 2, 3]).join(''), '123', 'Pass toArray a real array');
+
+		equal(theLibrary.toArray({
+			length: 2,
+			0: 'a',
+			1: 'b'
+		}).join(''), 'ab', 'Pass toArray an array like map (with length)');
+
+		ok(!!theLibrary.toArray(document.documentElement.childNodes).slice(0, 1)[0].nodeName, 'Pass toArray a childNodes array');
 	});
 
-	testEach({ name: 'name', lang: 'lang' }, function( n, i ) {
-		equal( n, i, 'Check object iteration' );
+	test("indexOf()", 35, function () {
+
+
+		var selections = {
+			p: q('firstp', 'en', 'sap', 'lastp'),
+			li: q('listOne', 'listTwo'),
+			div: q('container', 'parent', 'child', 'foo'),
+			a: q('mark', 'link1', 'simon'),
+			empty: []
+		},
+			tests = {
+				p: {
+					elem: theLibrary('#en')[0],
+					index: 1
+				},
+				li: {
+					elem: theLibrary('#listTwo')[0],
+					index: 1
+				},
+				div: {
+					elem: theLibrary('#child')[0],
+					index: 2
+				},
+				a: {
+					elem: theLibrary('#simon')[0],
+					index: 2
+				}
+			},
+			falseTests = {
+				p: theLibrary('#listOne')[0],
+				li: theLibrary('#foo')[0],
+				empty: ''
+			};
+
+		theLibrary.each(tests, function (obj, key) {
+			equal(theLibrary.indexOf(selections[key], obj.elem), obj.index, obj.elem + ' is in the array of selections of its tag');
+			equal(theLibrary(selections[key]).indexOf(obj.elem), obj.index, obj.elem + ' is in the array of selections of its tag');
+
+			// Third arg
+			equal(!!~theLibrary.indexOf(selections[key], obj.elem, 5), false, obj.elem + ' is NOT in the array of selections given a starting index greater than its position');
+			equal(!!~theLibrary.indexOf(selections[key], obj.elem, 1), true, obj.elem + ' is in the array of selections given a starting index less than or equal to its position');
+			equal(!!~theLibrary.indexOf(selections[key], obj.elem, -3), true, obj.elem + ' is in the array of selections given with a negative fromIndex');
+
+			equal(!!~theLibrary(selections[key]).indexOf(obj.elem, 5), false, obj.elem + ' is NOT in the array of selections given a starting index greater than its position');
+			equal(!!~theLibrary(selections[key]).indexOf(obj.elem, 1), true, obj.elem + ' is in the array of selections given a starting index less than or equal to its position');
+			equal(!!~theLibrary(selections[key]).indexOf(obj.elem, -3), true, obj.elem + ' is in the array of selections given with a negative fromIndex');
+		});
+
+		theLibrary.each(falseTests, function (elem, key) {
+			equal(!!~theLibrary.indexOf(selections[key], elem), false, 'elem is NOT in the array of selections');
+		});
+
 	});
 
-	var total = 0;
-	testEach([ 1, 2, 3 ], function( v ) { total += v; });
-	equal( total, 12, 'Looping over an array' );
-	total = 0;
-	testEach({ 'a' : 1, 'b' : 2, 'c' : 3 }, function( v ) { total += v; });
-	equal( total, 12, 'Looping over an object' );
+	test('theLibrary.each', 11, function () {
 
-	var stylesheet_count = 0;
-	testEach(document.styleSheets, function( i ) {
-		stylesheet_count++;
+		theLibrary.each([0, 1, 2], function (n, i) {
+			equal(i, n, 'Check array iteration');
+		});
+
+		theLibrary.each([5, 6, 7], function (n, i) {
+			equal(n - 5, i, 'Check array iteration');
+		});
+
+		theLibrary.each({
+			name: 'name',
+			lang: 'lang'
+		}, function (n, i) {
+			equal(n, i, 'Check object iteration');
+		});
+
+		var total = 0;
+		theLibrary.each([1, 2, 3], function (v) {
+			total += v;
+		});
+		equal(total, 6, 'Looping over an array');
+		total = 0;
+		theLibrary.each({
+			'a': 1,
+			'b': 2,
+			'c': 3
+		}, function (v) {
+			total += v;
+		});
+		equal(total, 6, 'Looping over an object');
+
+		var stylesheet_count = 0;
+		theLibrary.each(document.styleSheets, function (i) {
+			stylesheet_count += 1;
+		});
+		equal(stylesheet_count, document.styleSheets.length, 'should not throw an error in IE while looping over document.styleSheets and return proper amount');
 	});
-	equal(stylesheet_count, 4, 'should not throw an error in IE while looping over document.styleSheets and return proper amount');
-});
 
-test("minimal.merge", function() {
-
-	deepEqual( minimal.merge([], [1, 2, 3, 4, 5]), [1, 2, 3, 4, 5], 'Merge two arrays' );
-	deepEqual( minimal.merge([1, 2], [3, 4]), [3, 4], 'The second array gets priority' );
-	deepEqual( minimal('.list').merge( queryAll('#foo') ).toArray(), q('foo', 'listTwo', 'listThree', 'listFiveDiv'), 'Merging a minimal object with an array' );
-	deepEqual( minimal('li.list').merge( minimal('div.list') ).toArray(), q('listFiveDiv', 'listTwo', 'listThree'),'Merging a minimal object with another')
-
-});
+}());

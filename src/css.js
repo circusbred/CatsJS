@@ -110,8 +110,8 @@ function css(node, name, value) {
 		return;
 	}
 
-	if (isString(name) && value) {
-		value = value.toString ? value.toString() : value;
+	if (isString(name) && value !== undefined) {
+		value = value && value.toString ? value.toString() : value;
 		return setCSS(node, name, value);
 	}
 }

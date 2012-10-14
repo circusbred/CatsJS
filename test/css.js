@@ -1,49 +1,49 @@
 module("css");
 
 
-test("getCSS()/setCSS()", function() {
+test("set/get", function() {
 	expect(18);
 
-	var $con = minimal('#container');
-	equal( $con.getCSS('display'), 'block', 'Check for css property "display"');
-	equal( minimal('#logo').getCSS('display'), 'none', 'Display is none on logo' );
-	var $foo = minimal('#foo');
-	equal( $foo.getCSS('display'), 'block', 'Assert #foo is displayed' );
-	equal( $foo.setCSS('display', 'none').getCSS('display'), 'none', 'Assert #foo is hidden' );
-	equal( $foo.setCSS('display', '').getCSS('display'), 'block', 'Reset display' );
+	var $con = theLibrary('#container');
+	equal( $con.css('display'), 'block', 'Check for css property "display"');
+	equal( theLibrary('#logo').css('display'), 'none', 'Display is none on logo' );
+	var $foo = theLibrary('#foo');
+	equal( $foo.css('display'), 'block', 'Assert #foo is displayed' );
+	equal( $foo.css('display', 'none').css('display'), 'none', 'Assert #foo is hidden' );
+	equal( $foo.css('display', '').css('display'), 'block', 'Reset display' );
 
-	equal( parseInt( $con.getCSS('fontSize') ), 16, 'Verify fontSize px set.' );
-	equal( parseInt( $con.getCSS('fontSize') ), 16, 'Verify fontSize px set.' );
-	$foo.setAttr('class', 'em');
-	equal( $foo.getAttr('class'), 'em', 'Verfiy em class set' );
-	equal( $foo.getCSS('fontSize'), '32px', 'Verify fontSize em set' );
+	equal( parseInt( $con.css('fontSize') ), 16, 'Verify fontSize px set.' );
+	equal( parseInt( $con.css('fontSize') ), 16, 'Verify fontSize px set.' );
+	$foo.attr('class', 'em');
+	equal( $foo.attr('class'), 'em', 'Verfiy em class set' );
+	equal( $foo.css('fontSize'), '32px', 'Verify fontSize em set' );
 
-	$foo.setCSS('width', '100px');
-	equal( $foo.getCSS('width'), '100px', 'Set and get width' );
-	equal( $con.find('input').setCSS('height', '13px').getCSS('height'), '13px', 'Set and Get height on inputs' );
-	$foo.setCSS('height', '100%');
+	$foo.css('width', '100px');
+	equal( $foo.css('width'), '100px', 'Set and get width' );
+	equal( $con.find('input').css('height', '13px').css('height'), '13px', 'Set and Get height on inputs' );
+	$foo.css('height', '100%');
 	equal( $foo[0].style.height, '100%', 'Set height to 100%' );
 
-	equal( typeof $foo.getCSS('width'), 'string', 'Make sure that a string width is returned.' );
+	equal( typeof $foo.css('width'), 'string', 'Make sure that a string width is returned.' );
 
-	var $img = minimal('img').first();
-	equal( $img.getCSS('float'), 'none', 'Float starts as none when computed' );
-	equal( $img.setCSS('float', 'left').getCSS('float'), 'left', 'Set float style' );
-	equal( $img.setCSS('float', '').getCSS('float'), 'none', 'Reset float' );
+	var $img = theLibrary('img').first();
+	equal( $img.css('float'), 'none', 'Float starts as none when computed' );
+	equal( $img.css('float', 'left').css('float'), 'left', 'Set float style' );
+	equal( $img.css('float', '').css('float'), 'none', 'Reset float' );
 
-	strictEqual( minimal('#opacityTest').getCSS('opacity'), '0.25', 'Test retrieving opacity on div element' );
-	$foo.setCSS('opacity', 0.5);
-	strictEqual( $foo.getCSS('opacity'), '0.5', 'Set and get opacity' );
+	strictEqual( theLibrary('#opacityTest').css('opacity'), '0.25', 'Test retrieving opacity on div element' );
+	$foo.css('opacity', 0.5);
+	strictEqual( $foo.css('opacity'), '0.5', 'Set and get opacity' );
 });
 
 test("getWinDimension()", function() {
 	expect(2);
-	equal( typeof minimal.getWinDimension('width'), 'number', 'Window dimensions are retrievable' );
-	equal( typeof minimal.getWinDimension('height'), 'number', 'Window dimensions are retrievable' );
+	equal( typeof theLibrary.getWinDimension('width'), 'number', 'Window dimensions are retrievable' );
+	equal( typeof theLibrary.getWinDimension('height'), 'number', 'Window dimensions are retrievable' );
 });
 
 test("getDocDimensions()", function() {
 	expect(2);
-	equal( typeof minimal.getDocDimension('width'), 'number', 'Window dimensions are retrievable' );
-	equal( typeof minimal.getDocDimension('height'), 'number', 'Window dimensions are retrievable' );
+	equal( typeof theLibrary.getDocDimension('width'), 'number', 'Window dimensions are retrievable' );
+	equal( typeof theLibrary.getDocDimension('height'), 'number', 'Window dimensions are retrievable' );
 });

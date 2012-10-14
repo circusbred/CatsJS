@@ -1,68 +1,88 @@
-
+/*global expando, Library, each, proto, addToProto, push */
+/*jslint browser: true */
 /**
  * Events
  */
 var on, off, preventDefault, stopPropagation;
-if ( document.addEventListener ) {
-	on = function( node, type, fn ) {
-		if ( node.addEventListener ) {
-			node.addEventListener( type, fn, false );
+if (document.addEventListener) {
+	on = function (node, type, fn) {
+		'use strict';
+		if (node.addEventListener) {
+			node.addEventListener(type, fn, false);
 		}
 	};
-	off = function( node, type, fn ) {
-		if ( node.removeEventListener ) {
-			node.removeEventListener( type, fn, false );
+	off = function (node, type, fn) {
+		'use strict';
+		if (node.removeEventListener) {
+			node.removeEventListener(type, fn, false);
 		}
 	};
 
-// IE
+	// IE
 } else {
-	preventDefault = function() { this.returnValue = false; };
-	stopPropagation = function() { this.cancelBubble = true; };
-	on = function( node, type, fn ) {
+	preventDefault = function () {
+		'use strict';
+		this.returnValue = false;
+	};
+	stopPropagation = function () {
+		'use strict';
+		this.cancelBubble = true;
+	};
+	on = function (node, type, fn) {
+		'use strict';
 		var f;
-		if ( node.attachEvent ) {
-			f = fn[ expando ] || (fn[ expando ] = function( e ) {
-				if ( typeof e.preventDefault !== 'function' ) {
-					e.preventDefault = preventDefault;
-					e.stopPropagation = stopPropagation;
-				}
-				fn.call( node, e );
-			});
-			node.attachEvent( 'on' + type, f );
+		if (node.attachEvent) {
+			if (fn[expando]) {
+				f = fn[expando];
+			} else {
+
+				f = fn[expando] = function (e) {
+					if (typeof e.preventDefault !== 'function') {
+						e.preventDefault = preventDefault;
+						e.stopPropagation = stopPropagation;
+					}
+					fn.call(node, e);
+				};
+
+			}
+			node.attachEvent('on' + type, f);
 		}
 	};
-	off = function( node, type, fn ) {
-		if ( node.detachEvent ) {
-			node.detachEvent( 'on' + type, fn[ expando ] || fn );
+	off = function (node, type, fn) {
+		'use strict';
+		if (node.detachEvent) {
+			node.detachEvent('on' + type, fn[expando] || fn);
 		}
 	};
 }
-minimal.on = on;
-minimal.off = off;
+Library.on = on;
+Library.off = off;
 
 var fire;
-if ( document.createEvent ) {
-	fire = function( node, type ) {
+if (document.createEvent) {
+	fire = function (node, type) {
+		'use strict';
 		var event = document.createEvent('HTMLEvents');
-		event.initEvent( type, true, true );
-		node.dispatchEvent( event );
+		event.initEvent(type, true, true);
+		node.dispatchEvent(event);
 	};
 } else {
-	fire = function( node, type ) {
+	fire = function (node, type) {
+		'use strict';
 		var event = document.createEventObject();
-		node.fireEvent( 'on' + type, event );
+		node.fireEvent('on' + type, event);
 	};
 }
-minimal.fire = fire;
-
-each('on off fire'.split(' '), function( val ) {
-	proto[ val ] = function() {
-		var node, args, i = 0;
-		for ( ; node = this[i]; i++ ) {
+Library.fire = fire;
+each(['on', 'off', 'fire'], function (val) {
+	'use strict';
+	proto[val] = function () {
+		var node, args, i, l;
+		for (i = 0, l = this.length; i < l; i += 1) {
+			node = this[i];
 			args = [ node ];
-			push.apply( args, arguments );
-			minimal[ val ].apply( node, args );
+			push.apply(args, arguments);
+			Library[val].apply(node, args);
 		}
 		return this;
 	};

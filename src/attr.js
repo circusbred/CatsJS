@@ -1,31 +1,27 @@
 /*global support, proto, rleveltwo */
-/*global isString, isObject, hasOwn, push */
+/*global isString, isObject, hasOwn, push, addToProto */
 /*jslint browser: true, sloppy: true */
 
 var getAttribute, setAttribute, removeAttribute;
 if (support.getSetAttribute) {
 	getAttribute = function (node, name) {
-		var nodeType;
-
 		// Does not normalize to undefined or null
 		// Both values are useful
 		return node.getAttribute(name);
 	};
-	removeAttribute = function (node, name, value) {
+	removeAttribute = function (node, name) {
 		node.removeAttribute(name);
 	};
 
 	setAttribute = function (node, name, value) {
-		var nodeType;
-
-		value = value.toString ? value.toString() : value;
+		value = value && value.toString ? value.toString() : value;
 		node.setAttribute(name, value);
 
 	};
 } else {
 	// IE6/7
 	getAttribute = function (node, name) {
-		var nodeType, ret;
+		var ret;
 
 		if (rleveltwo.test(name)) {
 			return node.getAttribute(name, 2);
@@ -41,20 +37,20 @@ if (support.getSetAttribute) {
 	};
 
 	setAttribute = function (node, name, value) {
-		var nodeType, attrNode;
+		var attrNode;
 
 		attrNode = node.getAttributeNode(name);
 		if (!attrNode) {
 			attrNode = document.createAttribute(name);
 			node.setAttributeNode(attrNode);
 		}
-		attrNode.nodeValue = value.toString ? value.toString() : value;
+		attrNode.nodeValue = value && value.toString ? value.toString() : value;
 
 	};
 }
 
 function attr(node, name, value) {
-	var i, key, nodeType;
+	var key;
 
 	if (isString(name) && value === undefined) {
 		return getAttribute(node, name);
@@ -72,14 +68,18 @@ function attr(node, name, value) {
 		return;
 	}
 
-	if (isString(name) && value) {
-		value = value.toString ? value.toString() : value;
+	if (isString(name) && value !== undefined) {
 		return setAttribute(node, name, value);
 	}
 }
 
 proto.attr = function (name, value) {
-	var node, args, i, length, nodeType, ret;
+	var node, args, i, length, nodeType,
+		ret = null;
+
+	if (name === undefined || this.length === 0) {
+		return ret;
+	}
 
 	for (i = 0, length = this.length; i < length; i += 1) {
 		node = this[i];
@@ -89,11 +89,13 @@ proto.attr = function (name, value) {
 			args = [node];
 			push.apply(args, arguments);
 			ret = attr.apply(node, args);
+		}
 
-			if (value === undefined) {
-				return ret;
-			}
+		if (value === undefined) {
+			return ret;
 		}
 	}
 	return this;
 };
+
+addToProto(removeAttribute, 'removeAttr');

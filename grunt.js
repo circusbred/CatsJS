@@ -9,8 +9,8 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: '<json:package.json>',
 		watch: {
-			files: '<config:jslint.files>',
-			tasks: 'concat min jslint qunit'
+			files: ['src/*.js', 'test/*'],
+			tasks: 'server build'
 		},
 		concat: {
 			dist: {
@@ -19,16 +19,16 @@ module.exports = function (grunt) {
 					'src/core.js',
 					'src/core.*.js',
 					'src/*.js',
-					'src/outro.js.stub'
+					'<file_template:src/outro.js.stub>'
 				],
-				dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.js'
+				dest: 'dist/<%= pkg.name %>.js'
 			}
 		},
 
 		min: {
 			dist: {
-				src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-				dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.min.js'
+				src: ['<config:concat.dist.dest>'],
+				dest: 'dist/<%= pkg.name %>.min.js'
 			}
 		},
 
@@ -48,9 +48,11 @@ module.exports = function (grunt) {
 		},
 
 		jslint_directives: {
-			browser: true
+			browser: true,
+			todo: true
 		}
 	});
+	grunt.registerTask('build', 'jslint concat min server qunit');
 
 	grunt.registerTask('default', 'watch');
 };

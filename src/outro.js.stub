@@ -1,5 +1,5 @@
 
 
-	window.cats = minimal;
+	window[library] = Library;
 
-})( this, this.document );
+})(this, this.document);

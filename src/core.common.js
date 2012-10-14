@@ -1,6 +1,39 @@
-
 /*jslint browser: true */
-/*global push, toString, isArray, isObject */
+/*global Library, library, version, pIndexOf */
+// Selector
+
+/*jslint regexp: true */
+var rcomma = /\s*,\s*/,
+	rid = /^#([\w\-]+)$/,
+	rtagclass = /^(?:([\w]+)|([\w]+)?\.([\w\-]+))$/,
+
+	// Classes
+	// IE doesn't match non-breaking spaces with \s
+	rtrim = /\S/.test('\xA0') ? /^[\s\xA0]+|[\s\xA0]+$/g : /^\s+|\s+$/g,
+	rspaces = /\s+/,
+	ptrim = String.prototype.trim,
+
+	// Attributes
+	rleveltwo = /(?:href|src|width|height)/i,
+
+	rnotnumpx = /^-?\d+[^p\s\d]+$/i,
+	ropacity = /opacity=([^)]*)/,
+	ralpha = /alpha\([^)]*\)/i,
+
+	proto,
+	expando = 'Library' + (version || 'test') + Math.random() * 9e17,
+
+	// Array
+	arrayProto = Array.prototype,
+	slice = arrayProto.slice,
+	push = arrayProto.push,
+	pindexOf = arrayProto.indexOf,
+
+	// Object
+	objProto = Object.prototype,
+	hasOwn = objProto.hasOwnProperty,
+	toString = objProto.toString;
+/*jslint regexp: false */
 
 function addToProto(fn, name, returnFirst) {
 	'use strict';
@@ -51,6 +84,12 @@ function toArray(list) {
 	return array;
 
 }
+Library.toArray = toArray;
+Library.prototype.toArray = function () {
+	'use strict';
+
+	return toArray(this);
+};
 
 
 function each(obj, iterator) {
@@ -62,7 +101,7 @@ function each(obj, iterator) {
 	}
 	length = obj.length;
 
-	if (isArray(obj) || isString(obj)) {
+	if (obj.length === +obj.length) {
 		for (key = 0; key < length; key += 1) {
 			iterator(obj[key], key, obj);
 		}
@@ -81,8 +120,18 @@ function each(obj, iterator) {
 	return obj;
 }
 
+Library.each = each;
+Library.prototype.each = function () {
+	'use strict';
+	var args = [this];
+	push.apply(args, arguments);
+	return each.apply(this, args);
+};
+
 
 // Simplified merge & extend (merge expects numerical length, extend expects objects)
+
+
 function merge(one, two) {
 	'use strict';
 
@@ -95,35 +144,52 @@ function merge(one, two) {
 
 
 // Checks if an item is within an array
-var indexOf = pindexOf ? function (array, searchElement, fromIndex) {
+var indexOf = Library.indexOf = (function () {
 	'use strict';
+	if (pindexOf) {
+		return function (array, searchElement, fromIndex) {
 
-	return pindexOf.call(array, searchElement, fromIndex);
-} : function (array, searchElement, fromIndex) {
-	'use strict';
-
-	var len = array.length,
-		i = fromIndex ? fromIndex < 0 ? Math.max(0, len + fromIndex) : fromIndex : 0;
-
-	for (; i < len; ++i) {
-		if (array[i] === searchElement) {
-			return i;
-		}
+			return pindexOf.call(array, searchElement, fromIndex);
+		};
 	}
-	return -1;
+
+	return function (array, searchElement, fromIndex) {
+
+		var i,
+			length = array.length;
+
+		for (i = fromIndex ? fromIndex < 0 ? Math.max(0, length + fromIndex) : fromIndex : 0; i < length; i += 1) {
+			if (array[i] === searchElement) {
+				return i;
+			}
+		}
+		return -1;
+	};
+}());
+Library.prototype.indexOf = function () {
+	'use strict';
+	var args = [this];
+	push.apply(args, arguments);
+	return Library.indexOf.apply(this, args);
 };
 
-// Cross-browser trim
-var trim = ptrim ? function (str) {
+var trim = Library.trim = (function () {
 	'use strict';
 
-	return ptrim.call(str);
-} : function (str) {
-	'use strict';
+	if (ptrim) {
+		return function (str) {
+			return ptrim.call(str);
+		};
+	}
+	return function (str) {
+		return str.replace(rtrim, '');
+	};
+}());
 
-	return str.replace(rtrim, '');
+Library.prototype.trim = function () {
+	'use strict';
+	var args = [this];
+	push.apply(args, arguments);
+	return Library.trim.apply(this, args);
 };
 
-
-
-addToProto(each, 'each');

@@ -1,46 +1,12 @@
 /*jslint browser: true */
+/*global queryAll, merge, version, library, global */
 
-var winMinimal = window.cats,
-
-	// Selector
-	rcomma = /\s*,\s*/,
-	rid = /^#([\w\-]+)$/,
-	rtagclass = /^(?:([\w]+)|([\w]+)?\.([\w\-]+))$/,
-
-	// Classes
-	// IE doesn't match non-breaking spaces with \s
-	rtrim = /\S/.test('\xA0') ? /^[\s\xA0]+|[\s\xA0]+$/g : /^\s+|\s+$/g,
-	rspaces = /\s+/,
-	ptrim = String.prototype.trim,
-
-	// Attributes
-	rleveltwo = /(?:href|src|width|height)/i,
-
-	// CSS
-	rnotnumpx = /^-?\d+[^p\s\d]+$/i,
-	ropacity = /opacity=([^)]*)/,
-	ralpha = /alpha\([^)]*\)/i;
-
-	// Array
-	arrayProto = Array.prototype,
-	slice = arrayProto.slice,
-	push = arrayProto.push,
-	pindexOf = arrayProto.indexOf,
-
-	// Object
-	objProto = Object.prototype,
-	hasOwn = objProto.hasOwnProperty,
-	toString = objProto.toString;
-
-/**
- * Main constructor
- */
-
-function minimal(selector, root) {
+function Library(selector, root) {
+	'use strict';
 
 	// Self-instantiate if not instantiated
-	if (!(this instanceof minimal)) {
-		return new minimal(selector, root);
+	if (!(this instanceof Library)) {
+		return new Library(selector, root);
 	}
 
 	var selection = queryAll(selector, root);
@@ -49,19 +15,15 @@ function minimal(selector, root) {
 	merge(this, selection);
 }
 
-
-
-var proto = minimal.prototype;
+var proto = Library.prototype;
 proto.version = version;
-var expando = 'minimal' + proto.version + Math.random() * 9e17;
-
-
 
 /**
  * Responsible infection of the global namespace
- * @return {Object} Returns minimal
+ * @return {Object} Returns Library
  */
-minimal.noConflict = function () {
-	window.cats = winCats;
-	return minimal;
+Library.noConflict = function () {
+	'use strict';
+	window[library] = global;
+	return Library;
 };

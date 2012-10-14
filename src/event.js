@@ -181,3 +181,19 @@ each(['on', 'off', 'fire'], function (val) {
 		return this;
 	};
 });
+
+function getBoundEvents(node) {
+	'use strict';
+
+	if (node && node.data && node.data.events) {
+		return node.data.events;
+	}
+
+	return {};
+}
+
+proto.events = function () {
+	'use strict';
+
+	return getBoundEvents(this[0]);
+};

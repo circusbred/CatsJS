@@ -1,4 +1,4 @@
-/*global expando, Library, each, proto, addToProto, push, indexOf, slice */
+/*global expando, Library, each, proto, addToProto, push, indexOf */
 /*jslint browser: true */
 /**
  * Events
@@ -17,6 +17,7 @@ function addEventData(node, type, fn) {
 if (document.addEventListener) {
 	on = function (node, type, fn) {
 		'use strict';
+
 		if (node.addEventListener) {
 			addEventData(node, type, fn);
 			node.addEventListener(type, fn, false);
@@ -24,6 +25,7 @@ if (document.addEventListener) {
 	};
 	off = function (node, type, fn) {
 		'use strict';
+
 		if (node.removeEventListener) {
 			if (fn === undefined) {
 				each(node.data.events[type], function (fn) {
@@ -150,6 +152,7 @@ var fire;
 if (document.createEvent) {
 	fire = function (node, type) {
 		'use strict';
+
 		var event = document.createEvent('HTMLEvents');
 		event.initEvent(type, true, true);
 		node.dispatchEvent(event);
@@ -157,6 +160,7 @@ if (document.createEvent) {
 } else {
 	fire = function (node, type) {
 		'use strict';
+
 		var event = document.createEventObject();
 		node.fireEvent('on' + type, event);
 	};
@@ -165,6 +169,7 @@ Library.fire = fire;
 
 each(['on', 'off', 'fire'], function (val) {
 	'use strict';
+
 	proto[val] = function () {
 		var node, args, i, l;
 		for (i = 0, l = this.length; i < l; i += 1) {

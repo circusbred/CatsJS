@@ -5,16 +5,20 @@
  */
 var on, off, preventDefault, stopPropagation, normalize;
 
+function addEventData(node, type, fn) {
+	'use strict';
+
+	node.data = node.data || {};
+	node.data.events = node.data.events || {};
+	node.data.events[type] = node.data.events[type] || [];
+	node.data.events[type].push(fn);
+}
+
 if (document.addEventListener) {
 	on = function (node, type, fn) {
 		'use strict';
 		if (node.addEventListener) {
-
-			node.data = node.data || {};
-			node.data.events = node.data.events || [];
-			node.data.events[type] = node.data.events[type] || [];
-			node.data.events[type].push(fn);
-
+			addEventData(node, type, fn);
 			node.addEventListener(type, fn, false);
 		}
 	};
@@ -112,11 +116,7 @@ if (document.addEventListener) {
 
 			}
 
-			node.data = node.data || {};
-			node.data.events = node.data.events || [];
-			node.data.events[type] = node.data.events[type] || [];
-			node.data.events[type].push(fn);
-
+			addEventData(node, type, fn);
 			node.attachEvent('on' + type, f);
 		}
 	};

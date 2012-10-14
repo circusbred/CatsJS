@@ -92,7 +92,7 @@ setCSS = function (node, name, value) {
 };
 
 function css(node, name, value) {
-	var key;
+	var key, display;
 
 	if (isString(name) && value === undefined) {
 		return getCSS(node, name);
@@ -100,12 +100,18 @@ function css(node, name, value) {
 
 	if (isObject(name)) {
 		// hasOwn = Object.prototype.hasOwnProperty, silly JSLint
+		display = node.style.display || '';
+		node.style.display = 'none';
 		/*jslint forin: true */
 		for (key in name) {
-			if (hasOwn.call(name, value)) {
+			if (hasOwn.call(name, key)) {
 				setCSS(node, key, name[key]);
+				if (key === 'display') {
+					display = name[key];
+				}
 			}
 		}
+		node.style.display = display;
 		/*jslint forin: false */
 		return;
 	}
@@ -129,7 +135,7 @@ proto.css = function (name, value) {
 			push.apply(args, arguments);
 			ret = css.apply(node, args);
 
-			if (value === undefined) {
+			if (value === undefined && !isObject(name)) {
 				return ret;
 			}
 		}

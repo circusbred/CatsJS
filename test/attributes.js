@@ -5,8 +5,7 @@
 
 	module("attributes");
 
-	test("attr([string])", function () {
-		expect(30);
+	test("attr() - get", 30, function () {
 
 		equal(theLibrary('#text1').attr('type'), 'text', 'Check for type attribute');
 		equal(theLibrary('#radio1').attr('type'), 'radio', 'Check for type attribute');
@@ -56,9 +55,30 @@
 		strictEqual(theLibrary('#firstp').attr('nonexisting'), null, 'attr works correctly for non existing attributes');
 	});
 
+	test("attr() - object", 9, function () {
+		var name, $div,
+			div = document.createElement('div'),
+			attrs = {
+				'data-cats': 'yes',
+				'aria-label': 'Hello',
+				'custom': 'cats',
+				'id': 'foo',
+				'target': 'stuff',
+				'name': 'cookies',
+				'data-integer': 1,
+				'data-true': true,
+				'data-false': false
+			};
 
-	test("attr()", function () {
-		expect(17);
+		theLibrary(div).attr(attrs);
+
+		for (name in attrs) {
+			strictEqual(div.getAttribute(name), attrs[name].toString(), "Was the attribute set?");
+		}
+	});
+
+
+	test("attr() - set", 17, function () {
 
 		var i, $elem,
 			div = theLibrary('div').attr('foo', 'bar'),
@@ -118,8 +138,7 @@
 		equal(theLibrary('#name').attr('someAttr'), '1', 'Set attribute to the number 1');
 	});
 
-	test("removeAttr()", function () {
-		expect(5);
+	test("removeAttr()", 5, function () {
 		equal(theLibrary('#mark').removeAttr('class')[0].className, '', 'remove class');
 		equal(theLibrary('#form1').removeAttr('id').attr('id'), null, 'Remove id');
 

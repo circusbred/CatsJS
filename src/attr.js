@@ -60,7 +60,7 @@ function attr(node, name, value) {
 		// hasOwn = Object.prototype.hasOwnProperty, silly JSLint
 		/*jslint forin: true */
 		for (key in name) {
-			if (hasOwn.call(name, value)) {
+			if (hasOwn.call(name, key)) {
 				setAttribute(node, key, name[key]);
 			}
 		}
@@ -91,7 +91,7 @@ proto.attr = function (name, value) {
 			ret = attr.apply(node, args);
 		}
 
-		if (value === undefined) {
+		if (value === undefined && !isObject(name)) {
 			return ret;
 		}
 	}

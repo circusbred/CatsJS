@@ -32,8 +32,12 @@ module.exports = function (grunt) {
 			}
 		},
 
+		uglify: {
+			lift_variables: true
+		},
+
 		qunit: {
-			all: ['http://localhost:9876/test/index.html']
+			all: ['http://localhost:9876/test/index.html', 'http://localhost:9876/test/min.html']
 		},
 
 		server: {

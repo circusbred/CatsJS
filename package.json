@@ -25,5 +25,8 @@
 		"grunt": "~0.3.11",
 		"grunt-jslint": "~0.1.8"
 	},
-	"keywords": []
+	"keywords": [],
+	"config": {
+		"selectorEngine": "minimal"
+	}
 }

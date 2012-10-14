@@ -122,7 +122,6 @@ function css(node, name, value) {
 	}
 }
 
-/*jslint unparam: true */
 proto.css = function (name, value) {
 	var node, args, i, length, nodeType, ret;
 
@@ -142,4 +141,3 @@ proto.css = function (name, value) {
 	}
 	return this;
 };
-/*jslint unparam: false */

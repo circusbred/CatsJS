@@ -1,15 +1,11 @@
 /*jslint browser: true */
-/*global Library, library, version, pIndexOf */
+/*global Library, library, version, pIndexOf, qwery */
 // Selector
 
 /*jslint regexp: true */
-var rcomma = /\s*,\s*/,
-	rid = /^#([\w\-]+)$/,
-	rtagclass = /^(?:([\w]+)|([\w]+)?\.([\w\-]+))$/,
-
-	// Classes
-	// IE doesn't match non-breaking spaces with \s
-	rtrim = /\S/.test('\xA0') ? /^[\s\xA0]+|[\s\xA0]+$/g : /^\s+|\s+$/g,
+// Classes
+// IE doesn't match non-breaking spaces with \s
+var rtrim = /\S/.test('\xA0') ? /^[\s\xA0]+|[\s\xA0]+$/g : /^\s+|\s+$/g,
 	rspaces = /\s+/,
 	ptrim = String.prototype.trim,
 
@@ -32,7 +28,12 @@ var rcomma = /\s*,\s*/,
 	// Object
 	objProto = Object.prototype,
 	hasOwn = objProto.hasOwnProperty,
-	toString = objProto.toString;
+	toString = objProto.toString,
+
+	proto = Library.prototype;
+
+
+proto.version = version;
 /*jslint regexp: false */
 
 function addToProto(fn, name, returnFirst) {

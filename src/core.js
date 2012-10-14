@@ -1,5 +1,5 @@
 /*jslint browser: true */
-/*global queryAll, merge, version, library, global */
+/*global selectorEngine, merge, version, library, global */
 
 function Library(selector, root) {
 	'use strict';
@@ -9,14 +9,11 @@ function Library(selector, root) {
 		return new Library(selector, root);
 	}
 
-	var selection = queryAll(selector, root);
+	var selection = selectorEngine(selector, root);
 
 	this.length = selection.length;
 	merge(this, selection);
 }
-
-var proto = Library.prototype;
-proto.version = version;
 
 /**
  * Responsible infection of the global namespace

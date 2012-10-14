@@ -1,4 +1,4 @@
-/*global proto, Library, slice, toArray, queryAll, rid, indexOf */
+/*global proto, Library, slice, toArray, selectorEngine, indexOf */
 /*jslint browser: true */
 proto.slice = function () {
 	'use strict';
@@ -21,7 +21,7 @@ proto.find = function (selector) {
 	var sel, j, el, i, l, l2,
 		ret = [];
 	for (i = 0, l = this.length; i < l; i += 1) {
-		sel = queryAll(selector, rid.test(selector) ? document : this[i]);
+		sel = selectorEngine(selector, this[i]);
 		for (j = 0, l2 = sel.length; j < l2; j += 1) {
 			el = sel[j];
 			if (indexOf(ret, el) === -1) {

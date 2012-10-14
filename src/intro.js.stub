@@ -5,4 +5,6 @@
 	'use strict';
 	var version = '<%= pkg.version %>',
 		library = '<%= pkg.name %>',
+		engine = '<%= pkg.config.selectorEngine %>',
+		selectorEngine = window[engine],
 		global = window[library];

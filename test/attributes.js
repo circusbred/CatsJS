@@ -78,7 +78,7 @@
 	});
 
 
-	test("attr() - set", 17, function () {
+	test("attr() - set", 14, function () {
 
 		var i, $elem,
 			div = theLibrary('div').attr('foo', 'bar'),
@@ -111,12 +111,6 @@
 
 		theLibrary('#foo').attr('contenteditable', true);
 		equal(theLibrary('#foo').attr('contenteditable'), 'true', 'Enumerated attributes are set properly');
-
-		for (i = 0; i < elems.length; i += 1) {
-			$elem = theLibrary(elems[i]);
-			$elem.attr('nonexisting', 'foo');
-			strictEqual($elem.attr('nonexisting'), null, 'attr works correctly on comment and text nodes');
-		}
 
 
 		var table = theLibrary('#table1'), td = theLibrary('td', table).first();

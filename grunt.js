@@ -15,6 +15,7 @@ module.exports = function (grunt) {
 		concat: {
 			dist: {
 				src: [
+					'lib/<%= pkg.config.selectorEngine %>/<%= pkg.config.selectorEngine %>.js',
 					'<file_template:src/intro.js.stub>',
 					'src/core.js',
 					'src/core.*.js',

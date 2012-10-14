@@ -66,6 +66,8 @@ if (document.addEventListener) {
 
 		e.which = e.keyCode || e.charCode;
 
+		e.target = e.target || e.srcElement;
+
 		if (typeof e.preventDefault !== 'function') {
 			e.preventDefault = preventDefault;
 			e.stopPropagation = stopPropagation;

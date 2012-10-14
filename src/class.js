@@ -7,9 +7,24 @@
  * Some class manipulation is based off of Google's code for the html5 presentation (http://code.google.com/p/html5slides/)
  */
 
+
+/**
+ * [safeClassName description]
+ *
+ * @requires trim
+ * @param  {String} className [description]
+ * @return {String}           [description]
+ */
+function safeClassName(className) {
+	'use strict';
+
+	return ' ' + trim(className) + ' ';
+}
+
+
 function hasClass(node, classStr) {
 	if (node && classStr) {
-		return (' ' + node.className + ' ').indexOf(' ' + trim(classStr) + ' ') !== -1;
+		return safeClassName(node.className).indexOf(safeClassName(trim(classStr))) !== -1;
 	}
 	return false;
 }

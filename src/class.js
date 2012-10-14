@@ -1,6 +1,6 @@
 /*global support, proto, rspaces */
 /*global isString, isObject, hasOwn, push, trim, addToProto */
-/*jslint browser: true, sloppy: true */
+/*jslint browser: true*/
 
 /**
  * @todo lots of documentation
@@ -27,6 +27,8 @@ function safeClassName(className) {
 
 
 function hasClass(node, classStr) {
+	'use strict';
+
 	if (node && classStr) {
 		return safeClassName(node.className).indexOf(safeClassName(trim(classStr))) !== -1;
 	}
@@ -35,6 +37,8 @@ function hasClass(node, classStr) {
 
 // @todo don't ever duplicate classes -- not just per run
 function addClass(node, classStr) {
+	'use strict';
+
 	classStr = classStr.split(rspaces);
 	var c, i,
 		cls = safeClassName(node.className),
@@ -50,6 +54,8 @@ function addClass(node, classStr) {
 }
 
 function removeClass(node, classStr) {
+	'use strict';
+
 	var cls, len, i;
 
 	if (classStr !== undefined) {
@@ -69,6 +75,8 @@ function removeClass(node, classStr) {
 }
 
 function toggleClass(node, classStr) {
+	'use strict';
+
 	if (hasClass(node, classStr)) {
 		removeClass(node, classStr);
 	} else {
@@ -77,6 +85,8 @@ function toggleClass(node, classStr) {
 }
 
 function replaceClass(node, oldClass, newClass) {
+	'use strict';
+
 	if (hasClass(node, oldClass)) {
 		removeClass(node, oldClass);
 		addClass(node, newClass);
@@ -87,6 +97,8 @@ function replaceClass(node, oldClass, newClass) {
 // If any of the elements have the class, return true
 // @todo utilize `all` flag to only return true if all elements have the class
 proto.hasClass = function (classStr) {
+	'use strict';
+
 	var length, i;
 	for (i = 0, length = this.length; i < length; i += 1) {
 		if (hasClass(this[i], classStr)) {

@@ -7,23 +7,9 @@
  * Some class manipulation is based off of Google's code for the html5 presentation (http://code.google.com/p/html5slides/)
  */
 
-
-/**
- * [safeClassName description]
- *
- * @requires trim
- * @param  {String} className [description]
- * @return {String}           [description]
- */
-function safeClassName(className) {
-	'use strict';
-
-	return ' ' + trim(className) + ' ';
-}
-
 function hasClass(node, classStr) {
 	if (node && classStr) {
-		return (safeClassName(node.className)).indexOf(safeClassName(trim(classStr))) !== -1;
+		return (' ' + node.className + ' ').indexOf(' ' + trim(classStr) + ' ') !== -1;
 	}
 	return false;
 }
@@ -31,12 +17,12 @@ function hasClass(node, classStr) {
 function addClass(node, classStr) {
 	classStr = classStr.split(rspaces);
 	var c, i,
-		cls = safeClassName(trim(node.className)),
+		cls = ' ' + trim(node.className) + ' ',
 		len = classStr.length;
 
 	for (i = 0; i < len; i += 1) {
 		c = classStr[i];
-		if (c && cls.indexOf(safeClassName(c)) < 0) {
+		if (c && cls.indexOf(' ' + c + ' ') < 0) {
 			cls += c + ' ';
 		}
 	}
@@ -48,10 +34,10 @@ function removeClass(node, classStr) {
 
 	if (classStr !== undefined) {
 		classStr = classStr.split(rspaces);
-		cls = safeClassName(node.className);
+		cls = ' ' + node.className + ' ';
 
 		for (i = 0, len = classStr.length; i < len; i += 1) {
-			cls = cls.replace(safeClassName(classStr[1]), ' ');
+			cls = cls.replace(' ' + classStr[i] + ' ', ' ');
 		}
 		cls = trim(cls);
 	} else {

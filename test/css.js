@@ -42,7 +42,7 @@
 	});
 
 	test('object', function () {
-		var name, $div,
+		var name, $div, prop,
 			div = document.createElement('div'),
 			attrs = {
 				'display': 'inline',
@@ -55,7 +55,8 @@
 		$div = theLibrary(div).css(attrs);
 
 		for (name in attrs) {
-			strictEqual($div.css(name), attrs[name].toString(), "Was the attribute set?");
+			prop = name;
+			strictEqual(div.style[prop], attrs[name].toString(), "Was the property set?");
 		}
 
 	});

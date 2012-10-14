@@ -9,12 +9,15 @@
  */
 Library.getWinDimension = function (name) {
 	'use strict';
+
 	name = name.charAt(0).toUpperCase() + name.slice(1); // Capitialize
 	var docElemProp = document.documentElement["client" + name];
 	return document.compatMode === "CSS1Compat" && (docElemProp || document.body["client" + name] || docElemProp);
 };
+
 Library.getDocDimension = function (name) {
 	'use strict';
+
 	name = name.charAt(0).toUpperCase() + name.slice(1); // Capitialize
 	return Math.max(
 		document.documentElement["client" + name],

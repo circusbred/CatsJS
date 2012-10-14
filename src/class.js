@@ -32,7 +32,7 @@ function hasClass(node, classStr) {
 function addClass(node, classStr) {
 	classStr = classStr.split(rspaces);
 	var c, i,
-		cls = safeClassName(trim(node.className)),
+		cls = safeClassName(node.className),
 		len = classStr.length;
 
 	for (i = 0; i < len; i += 1) {

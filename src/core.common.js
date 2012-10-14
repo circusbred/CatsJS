@@ -3,9 +3,23 @@
 // Selector
 
 /*jslint regexp: true */
-// Classes
-// IE doesn't match non-breaking spaces with \s
-var rtrim = /\S/.test('\xA0') ? /^[\s\xA0]+|[\s\xA0]+$/g : /^\s+|\s+$/g,
+
+var arrayProto = Array.prototype,
+	stringProto = String.prototype,
+	objProto = Object.prototype,
+	proto = Library.prototype,
+
+	ptrim = stringProto.trim,
+
+	slice = arrayProto.slice,
+	push = arrayProto.push,
+	pindexOf = arrayProto.indexOf,
+
+	hasOwn = objProto.hasOwnProperty,
+	toString = objProto.toString,
+
+	// IE doesn't match non-breaking spaces with \s
+	rtrim = /\S/.test('\xA0') ? /^[\s\xA0]+|[\s\xA0]+$/g : /^\s+|\s+$/g,
 	rspaces = /\s+/,
 	ptrim = String.prototype.trim,
 
@@ -16,21 +30,8 @@ var rtrim = /\S/.test('\xA0') ? /^[\s\xA0]+|[\s\xA0]+$/g : /^\s+|\s+$/g,
 	ropacity = /opacity=([^)]*)/,
 	ralpha = /alpha\([^)]*\)/i,
 
-	proto,
-	expando = 'Library' + (version || 'test') + Math.random() * 0x0deadbeef,
+	expando = 'Library' + (version || 'test') + Math.random() * 0x0deadbeef;
 
-	// Array
-	arrayProto = Array.prototype,
-	slice = arrayProto.slice,
-	push = arrayProto.push,
-	pindexOf = arrayProto.indexOf,
-
-	// Object
-	objProto = Object.prototype,
-	hasOwn = objProto.hasOwnProperty,
-	toString = objProto.toString,
-
-	proto = Library.prototype;
 
 
 proto.version = version;
@@ -193,4 +194,3 @@ Library.prototype.trim = function () {
 	push.apply(args, arguments);
 	return Library.trim.apply(this, args);
 };
-

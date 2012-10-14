@@ -96,7 +96,7 @@ function each(obj, iterator) {
 	'use strict';
 
 	var key, length;
-	if (!obj) {
+	if (!obj || !iterator) {
 		return;
 	}
 	length = obj.length;

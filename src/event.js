@@ -1,4 +1,4 @@
-/*global expando, Library, each, proto, addToProto, push */
+/*global expando, Library, each, proto, addToProto, push, indexOf, slice */
 /*jslint browser: true */
 /**
  * Events
@@ -9,26 +9,46 @@ if (document.addEventListener) {
 	on = function (node, type, fn) {
 		'use strict';
 		if (node.addEventListener) {
+
+			node.data = node.data || {};
+			node.data.events = node.data.events || [];
+			node.data.events[type] = node.data.events[type] || [];
+			node.data.events[type].push(fn);
+
 			node.addEventListener(type, fn, false);
 		}
 	};
 	off = function (node, type, fn) {
 		'use strict';
 		if (node.removeEventListener) {
-			node.removeEventListener(type, fn, false);
+			if (fn === undefined) {
+				each(node.data.events[type], function (fn) {
+					off(node, type, fn);
+				});
+			} else {
+				var index = indexOf(node.data.events[type], fn);
+
+				if (index !== -1) {
+
+					node.data.events[type].splice(index, 1);
+
+					node.removeEventListener(type, fn, false);
+				}
+			}
 		}
 	};
 
-	// IE
-} else {
+} else { // IE
 
 	preventDefault = function () {
 		'use strict';
+
 		this.returnValue = false;
 	};
 
 	stopPropagation = function () {
 		'use strict';
+
 		this.cancelBubble = true;
 	};
 
@@ -40,6 +60,7 @@ if (document.addEventListener) {
 	 * * which
 	 * * preventDefault
 	 * * stopPropagation
+	 * * target
 	 *
 	 * @param  {Event} e The event to be normalized
 	 * @return {Event}   The normalized event
@@ -90,6 +111,12 @@ if (document.addEventListener) {
 				};
 
 			}
+
+			node.data = node.data || {};
+			node.data.events = node.data.events || [];
+			node.data.events[type] = node.data.events[type] || [];
+			node.data.events[type].push(fn);
+
 			node.attachEvent('on' + type, f);
 		}
 	};
@@ -98,7 +125,20 @@ if (document.addEventListener) {
 		'use strict';
 
 		if (node.detachEvent) {
-			node.detachEvent('on' + type, fn[expando] || fn);
+			if (fn === undefined) {
+				each(node.data.events[type], function (fn) {
+					off(node, type, fn);
+				});
+			} else {
+				var index = indexOf(node.data.events[type], fn);
+
+				if (index !== -1) {
+
+					node.data.events[type].splice(index, 1);
+
+					node.detachEvent('on' + type, fn[expando] || fn);
+				}
+			}
 		}
 	};
 }

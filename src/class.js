@@ -3,6 +3,10 @@
 /*jslint browser: true, sloppy: true */
 
 /**
+ * @todo lots of documentation
+ */
+
+/**
  * Classes
  * Some class manipulation is based off of Google's code for the html5 presentation (http://code.google.com/p/html5slides/)
  */
@@ -29,6 +33,7 @@ function hasClass(node, classStr) {
 	return false;
 }
 
+// @todo don't ever duplicate classes -- not just per run
 function addClass(node, classStr) {
 	classStr = classStr.split(rspaces);
 	var c, i,
@@ -80,6 +85,7 @@ function replaceClass(node, oldClass, newClass) {
 	}
 }
 // If any of the elements have the class, return true
+// @todo utilize `all` flag to only return true if all elements have the class
 proto.hasClass = function (classStr) {
 	var length, i;
 	for (i = 0, length = this.length; i < length; i += 1) {

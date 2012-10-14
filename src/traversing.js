@@ -1,20 +1,24 @@
 /*global proto, Library, slice, toArray, selectorEngine, indexOf */
 /*jslint browser: true */
+
 proto.slice = function () {
 	'use strict';
 
 	return new Library(slice.apply(toArray(this), arguments));
 };
+
 proto.first = function () {
 	'use strict';
 
 	return this.slice(0, 1);
 };
+
 proto.eq = function (index) {
 	'use strict';
 
 	return (index = +index) !== -1 ? this.slice(index, index + 1) : this.slice(index);
 };
+
 proto.find = function (selector) {
 	'use strict';
 
@@ -31,6 +35,7 @@ proto.find = function (selector) {
 	}
 	return new Library(ret);
 };
+
 proto.filter = function (fn) {
 	'use strict';
 

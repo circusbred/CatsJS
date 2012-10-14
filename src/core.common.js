@@ -32,8 +32,6 @@ var arrayProto = Array.prototype,
 
 	expando = 'Library' + (version || 'test') + Math.random() * 0x0deadbeef;
 
-
-
 proto.version = version;
 /*jslint regexp: false */
 

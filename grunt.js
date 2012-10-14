@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 		pkg: '<json:package.json>',
 		watch: {
 			files: ['src/*.js', 'test/*'],
-			tasks: 'server build'
+			tasks: 'build'
 		},
 		concat: {
 			dist: {

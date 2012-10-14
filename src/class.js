@@ -37,7 +37,7 @@ function addClass(node, classStr) {
 
 	for (i = 0; i < len; i += 1) {
 		c = classStr[i];
-		if (c && cls.indexOf(' ' + c + ' ') < 0) {
+		if (c && cls.indexOf(safeClassName(c)) < 0) {
 			cls += c + ' ';
 		}
 	}
@@ -49,10 +49,10 @@ function removeClass(node, classStr) {
 
 	if (classStr !== undefined) {
 		classStr = classStr.split(rspaces);
-		cls = ' ' + node.className + ' ';
+		cls = safeClassName(node.className);
 
 		for (i = 0, len = classStr.length; i < len; i += 1) {
-			cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+			cls = cls.replace(safeClassName(classStr[i]), ' ');
 		}
 		cls = trim(cls);
 	} else {

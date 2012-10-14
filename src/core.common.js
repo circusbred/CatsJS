@@ -17,7 +17,7 @@ var rtrim = /\S/.test('\xA0') ? /^[\s\xA0]+|[\s\xA0]+$/g : /^\s+|\s+$/g,
 	ralpha = /alpha\([^)]*\)/i,
 
 	proto,
-	expando = 'Library' + (version || 'test') + Math.random() * 9e17,
+	expando = 'Library' + (version || 'test') + Math.random() * 0x0deadbeef,
 
 	// Array
 	arrayProto = Array.prototype,

@@ -128,21 +128,6 @@ Library.prototype.each = function () {
 	return each.apply(this, args);
 };
 
-
-// Simplified merge & extend (merge expects numerical length, extend expects objects)
-
-
-function merge(one, two) {
-	'use strict';
-
-	var i, length;
-	for (i = 0, length = two.length; i < length; i += 1) {
-		one[i] = two[i];
-	}
-	return one;
-}
-
-
 // Checks if an item is within an array
 var indexOf = Library.indexOf = (function () {
 	'use strict';

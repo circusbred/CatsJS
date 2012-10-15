@@ -1,5 +1,5 @@
 /*jslint browser: true */
-/*global selectorEngine, merge, version, library, global */
+/*global selectorEngine, version, library, global */
 
 function Library(selector, root) {
 	'use strict';
@@ -9,10 +9,15 @@ function Library(selector, root) {
 		return new Library(selector, root);
 	}
 
-	var selection = selectorEngine(selector, root);
+	var i,
+		selection = selectorEngine(selector, root),
+		selectionLength = selection.length;
 
 	this.length = selection.length;
-	merge(this, selection);
+
+	for (i = 0; i < selectionLength; i += 1) {
+		this[i] = selection[i];
+	}
 }
 
 /**

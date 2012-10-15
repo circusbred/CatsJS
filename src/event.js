@@ -3,6 +3,7 @@
 /**
  * Events
  */
+// TODO event delegation?
 var on, off, preventDefault, stopPropagation, normalize;
 
 function addEventData(node, type, fn) {
@@ -195,5 +196,6 @@ function getBoundEvents(node) {
 proto.events = function () {
 	'use strict';
 
+	// TODO exception, this.length could be 0
 	return getBoundEvents(this[0]);
 };

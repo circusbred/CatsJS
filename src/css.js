@@ -32,6 +32,7 @@ if (!support.opacity) {
 	};
 }
 
+// TODO support ?
 if (window.getComputedStyle) {
 	getCSS = function (node, name) {
 		name = cssProps[name] || name;

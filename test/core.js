@@ -1,9 +1,69 @@
-/*global QUnit, module, test, equal, strictEqual, theLibrary, expect, ok, cats, deepEqual, q */
+/*global QUnit, module, test, equal, strictEqual, theLibrary, expect, ok, cats, deepEqual */
 /*jslint browser: true, vars:true */
 (function () {
 	'use strict';
+	/**
+	 * Returns an array of elements with the given IDs
+	 * @example q("qunit-fixture", "foo", "bar")
+	 * @return {Array} An array of selected elements
+	 */
 
-	module("core");
+	function q() {
+		var i, r = [];
+
+		for (i = 0; i < arguments.length; i += 1) {
+			r.push(document.getElementById(arguments[i]));
+		}
+
+		return r;
+	}
+
+
+	var fixtureHTML = '<div id="container">' +
+		'	<p id="firstp"></p>' +
+		'	<div id="foo">' +
+		'		<p id="sndp">Everything inside the red border is inside a div with <code>id="foo"</code>.</p>' +
+		'		<p lang="en" id="en">This is a normal link: <a id="yahoo" href="http://www.yahoo.com/" class="blogTest">Yahoo</a></p>' +
+		'		<p id="sap">This link has <code><a href="#2" id="anchor2">class="blog"</a></code>: <a href="http://simon.incutio.com/" class="blog link" id="simon">Simon Willison\'s Weblog</a></p>' +
+		'	</div>' +
+		'	<div id="parent">' +
+		'		<div id="child"></div>' +
+		'	</div>' +
+		'	<ul id="unorderedList">' +
+		'		<li id="listOne" class="list"></li>' +
+		'		<li id="listTwo" class="list"></li>' +
+		'		<li id="listThree" class="list"></li>' +
+		'		<li id="listFour"></li>' +
+		'	</ul>' +
+		'	<div id="listFiveDiv" class="list"></div>' +
+		'	<input type="text" id="text1" maxlength="30">' +
+		'	<p id="lastp" class="pFoo"></p>' +
+		'	<a href="#" rel="nofollow" id="link1" title="test">test</a>' +
+		'	<a onclick="something()" href="http://diveintomark.org/" class="blog" hreflang="en" id="mark">diveintomark</a>' +
+		'	<img id="logo" src="http://jsfiddle.net/img/logo.png" width="10" height="12">' +
+		'	<table id="table1">' +
+		'		<tr><td>cell</td></tr>' +
+		'		<tr><td>cell</td><td>cell</td></tr>' +
+		'		<tr><td>cell</td><td>cell</td></tr>' +
+		'	</table>' +
+		'	<div id="opacityTest" style="opacity:0.25;filter:alpha(opacity=25)"></div>' +
+		'	<form action="#" id="form1" class="classOnForm">' +
+		'		<input type="radio" id="radio1">' +
+		'		<input type="checkbox" id="check1">' +
+		'		<input type="text" id="name" name="name" value="name" />' +
+		'		<input type="text" id="action" name="action" value="action" />' +
+		'		<input type="text" name="target" id="target">' +
+		'		<input type="text" name="id">' +
+		'		<textarea id="area1" value="foobar">text</textarea>' +
+		'		<button id="button1" value="foobar">text</button>' +
+		'	</form>' +
+		'</div> <!-- /container -->';
+
+	module("core", {
+		setup: function () {
+			document.getElementById('qunit-fixture').innerHTML = fixtureHTML;
+		}
+	});
 
 	test("noConflict()", 1, function () {
 
@@ -103,6 +163,7 @@
 			equal(theLibrary.indexOf(selections[key], obj.elem), obj.index, obj.elem + ' is in the array of selections of its tag');
 			equal(theLibrary(selections[key]).indexOf(obj.elem), obj.index, obj.elem + ' is in the array of selections of its tag');
 
+			//TODO stupid
 			// Third arg
 			equal(!!~theLibrary.indexOf(selections[key], obj.elem, 5), false, obj.elem + ' is NOT in the array of selections given a starting index greater than its position');
 			equal(!!~theLibrary.indexOf(selections[key], obj.elem, 1), true, obj.elem + ' is in the array of selections given a starting index less than or equal to its position');

@@ -26,10 +26,6 @@ var arrayProto = Array.prototype,
 	// Attributes
 	rleveltwo = /(?:href|src|width|height)/i,
 
-	rnotnumpx = /^-?\d+[^p\s\d]+$/i,
-	ropacity = /opacity=([^)]*)/,
-	ralpha = /alpha\([^)]*\)/i,
-
 	expando = 'Library' + (version || 'test') + Math.random() * 0x0deadbeef;
 
 proto.version = version;

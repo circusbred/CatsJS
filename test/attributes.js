@@ -122,7 +122,7 @@
 
 		for (name in attrs) {
 			if (attrs.hasOwnProperty(name)) {
-				strictEqual(div.getAttribute(name), attrs[name].toString(), "Was the attribute set?");
+				strictEqual(div.getAttribute(name, 2), attrs[name].toString(), "Was the attribute set?");
 			}
 		}
 	});

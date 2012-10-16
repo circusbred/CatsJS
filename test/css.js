@@ -104,7 +104,7 @@
 		for (name in attrs) {
 			if (attrs.hasOwnProperty(name)) {
 				prop = name;
-				strictEqual(div.style[prop], attrs[name].toString(), "Was the property set?");
+				strictEqual($div.css(prop), attrs[name].toString(), "Was the property set?");
 			}
 		}
 

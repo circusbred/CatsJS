@@ -1,33 +1,39 @@
-/*global support, proto, rnotnumpx */
+/*global support, proto, trim */
 /*global isString, isObject, hasOwn, push */
 /*jslint browser: true, sloppy: true */
 
+/*jslint regexp: true */
 var getCSS, setCSS,
 	cssHooks = {},
 	cssProps = {
 		// Normalize float
 		'float': support.cssFloat ? 'cssFloat' : 'styleFloat'
-	};
+	},
+
+	rnotnumpx = /^-?\d+[^p\s\d]+$/i,
+	ropacity = /opacity=([^)]*)/,
+	ralpha = /alpha\([^)]*\)/i;
+
+/*jslint regexp: false */
 
 
 // IE uses filter for opacity
 if (!support.opacity) {
 	cssHooks.opacity = {
 		get: function (node) {
-			var alpha = node.filters.alpha;
-			// Return a string just like the browser
-			return alpha ? (alpha.opacity / 100).toString() : '1';
+			return ropacity.test(node.style.filter || "") ? (0.01 * parseFloat(RegExp.$1)).toString() : "";
 		},
 		set: function (node, value) {
 			var style = node.style,
-				alpha = node.filters.alpha;
+				filter = style.filter,
+				opacity = 'alpha(opacity=' + (value * 100).toString() + ')';
 
 			style.zoom = 1; // Force opacity in IE by setting the zoom level
-			if (alpha) {
-				alpha.opacity = value * 100;
-			} else {
-				style.filter += 'alpha(opacity=' + value * 100 + ')';
+			if (value >= 1 && trim(filter.replace(ralpha, '')) === '' && style.removeAttribute) {
+				style.removeAttribute('filter');
 			}
+
+			style.filter = ralpha.test(filter) ? filter.replace(ralpha, opacity) : filter + " " + opacity;
 		}
 	};
 }

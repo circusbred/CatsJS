@@ -38,7 +38,11 @@ module.exports = function (grunt) {
 		},
 
 		qunit: {
-			all: ['http://localhost:9876/test/index.html', 'http://localhost:9876/test/min.html']
+			all: [
+				'http://localhost:9876/test/index.html',
+				'http://localhost:9876/test/min.html',
+				'http://localhost:9876/test/minimal.html'
+			]
 		},
 
 		server: {
@@ -57,6 +61,7 @@ module.exports = function (grunt) {
 			todo: true
 		}
 	});
+
 	grunt.registerTask('build', 'jslint concat min server qunit');
 
 	grunt.registerTask('default', 'watch');

@@ -1,5 +1,4 @@
 /*global QUnit, module, test, equal, strictEqual, theLibrary, expect, ok, deepEqual, start, stop */
-/*global queryAll */
 /*jslint browser: true, vars:true */
 (function () {
 	'use strict';
@@ -8,6 +7,8 @@
 	 * @example q("qunit-fixture", "foo", "bar")
 	 * @return {Array} An array of selected elements
 	 */
+
+	var queryAll = window.minimal;
 
 	function q() {
 		var i, r = [];
@@ -107,12 +108,10 @@
 	});
 
 	test("Rooted Selections", function () {
-		expect(3);
+		expect(2);
 		equal(queryAll('div', '#parent')[0].id, 'child', '#parent passed as root for child div');
 		var ul = q('unorderedList')[0];
 		equal(queryAll('.list', ul).length, q('listOne', 'listTwo', 'listThree').length, 'Select elements with given class only within ul root');
-		var table = theLibrary('#table1');
-		ok(queryAll('td', table).length, 'Passing a minimal object as the context does not throw an error');
 	});
 
 	test("Invalid", function () {

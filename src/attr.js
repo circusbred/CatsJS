@@ -2,52 +2,67 @@
 /*global isString, isObject, hasOwn, push, addToProto */
 /*jslint browser: true, sloppy: true */
 
-var getAttribute, setAttribute, removeAttribute;
-if (support.getSetAttribute) {
-	getAttribute = function (node, name) {
-		// Does not normalize to undefined or null
-		// Both values are useful
-		return node.getAttribute(name);
-	};
-	removeAttribute = function (node, name) {
-		node.removeAttribute(name);
-	};
-
-	setAttribute = function (node, name, value) {
-		value = value && value.toString ? value.toString() : value;
-		node.setAttribute(name, value);
-
-	};
-} else {
-	// IE6/7
-	getAttribute = function (node, name) {
-		var ret;
-
-		if (rleveltwo.test(name)) {
-			return node.getAttribute(name, 2);
+var getAttribute = (function () {
+		if (support.getSetAttribute) {
+			return function (node, name) {
+				// Does not normalize to undefined or null
+				// Both values are useful
+				return node.getAttribute(name);
+			};
 		}
 
-		ret = node.getAttributeNode(name);
-		return ret && (ret = ret.nodeValue) !== '' ? ret : null;
-	};
+		// IE6/7
+		return function (node, name) {
+			var ret;
 
-	removeAttribute = function (node, name) {
-		node.setAttribute(name, '');
-		node.removeAttributeNode(node.getAttributeNode(name));
-	};
+			if (rleveltwo.test(name)) {
+				return node.getAttribute(name, 2);
+			}
 
-	setAttribute = function (node, name, value) {
-		var attrNode;
+			ret = node.getAttributeNode(name);
+			return ret && (ret = ret.nodeValue) !== '' ? ret : null;
+		};
 
-		attrNode = node.getAttributeNode(name);
-		if (!attrNode) {
-			attrNode = document.createAttribute(name);
-			node.setAttributeNode(attrNode);
+	}()),
+	removeAttribute = (function () {
+		if (support.getSetAttribute) {
+			return function (node, name) {
+				node.removeAttribute(name);
+			};
 		}
-		attrNode.nodeValue = value && value.toString ? value.toString() : value;
 
-	};
-}
+		// IE6/7
+		return function (node, name) {
+			node.setAttribute(name, '');
+			node.removeAttributeNode(node.getAttributeNode(name));
+
+		};
+
+
+	}()),
+	setAttribute = (function () {
+		if (support.getSetAttribute) {
+			return function (node, name, value) {
+				value = value && value.toString ? value.toString() : value;
+				node.setAttribute(name, value);
+
+			};
+		}
+
+		// IE6/7
+		return function (node, name, value) {
+			var attrNode;
+
+			attrNode = node.getAttributeNode(name);
+			if (!attrNode) {
+				attrNode = document.createAttribute(name);
+				node.setAttributeNode(attrNode);
+			}
+			attrNode.nodeValue = value && value.toString ? value.toString() : value;
+
+		};
+
+	}());
 
 function attr(node, name, value) {
 	var key;

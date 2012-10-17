@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8" />
+
+	<meta charset="utf8" />
 	<title>QUnit Test Suite</title>
-	<link rel="stylesheet" href="test.css" type="text/css" media="screen" charset="utf-8">
-	<link rel="stylesheet" href="qunit/qunit/qunit.css" type="text/css" media="screen">
-	<script src="qunit/qunit/qunit.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="test.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="qunit/qunit/qunit.css" type="text/css" media="screen" />
+	<script src="qunit/qunit/qunit.js"></script>
 
-	<!--[if IE]>
-		<script src="http://getfirebug.com/firebug-lite-debug.js" charset="utf-8"></script>
-	<![endif]-->
+	<script src="../dist/cats.min.js"></script>
 
-	<script src="../dist/cats.min.js" charset="utf-8"></script>
+	<script src="testinit.js"></script>
 
-	<script src="testinit.js" charset="utf-8"></script>
+	<script src="core.js"></script>
+	<script src="attributes.js"></script>
+	<script src="classes.js"></script>
+	<script src="css.js"></script>
+	<script src="traversing.js"></script>
+	<script src="events.js"></script>
 
-	<script src="core.js"       charset="utf-8"></script>
-	<script src="attributes.js" charset="utf-8"></script>
-	<script src="classes.js"    charset="utf-8"></script>
-	<script src="css.js"        charset="utf-8"></script>
-	<script src="traversing.js" charset="utf-8"></script>
-	<script src="events.js"     charset="utf-8"></script>
 </head>
-<body>
-	<h1 id="qunit-header">QUnit Test Suite</h1>
-	<h2 id="qunit-banner"></h2>
-	<div id="qunit-testrunner-toolbar"></div>
-	<h2 id="qunit-userAgent"></h2>
-	<ol id="qunit-tests"></ol>
 
+<body>
+
+	<div id="qunit"></div>
 	<div id="qunit-fixture"></div>
+
 </body>
+
 </html>

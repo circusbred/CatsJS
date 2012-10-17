@@ -3,7 +3,9 @@
 /**
  * Events
  */
+
 // TODO event delegation?
+
 var on, off, preventDefault, stopPropagation, normalize;
 
 function addEventData(node, type, fn) {
@@ -16,6 +18,7 @@ function addEventData(node, type, fn) {
 }
 
 if (document.addEventListener) {
+
 	on = function (node, type, fn) {
 		'use strict';
 
@@ -24,14 +27,17 @@ if (document.addEventListener) {
 			node.addEventListener(type, fn, false);
 		}
 	};
+
 	off = function (node, type, fn) {
 		'use strict';
 
 		if (node.removeEventListener) {
+
 			if (fn === undefined) {
 				each(node.data.events[type], function (fn) {
 					off(node, type, fn);
 				});
+
 			} else {
 				var index = indexOf(node.data.events[type], fn);
 
@@ -150,7 +156,9 @@ Library.on = on;
 Library.off = off;
 
 var fire;
+
 if (document.createEvent) {
+
 	fire = function (node, type) {
 		'use strict';
 
@@ -158,13 +166,16 @@ if (document.createEvent) {
 		event.initEvent(type, true, true);
 		node.dispatchEvent(event);
 	};
+
 } else {
+
 	fire = function (node, type) {
 		'use strict';
 
 		var event = document.createEventObject();
 		node.fireEvent('on' + type, event);
 	};
+
 }
 Library.fire = fire;
 
@@ -196,6 +207,9 @@ function getBoundEvents(node) {
 proto.events = function () {
 	'use strict';
 
-	// TODO exception, this.length could be 0
-	return getBoundEvents(this[0]);
+	if (this.length) {
+		return getBoundEvents(this[0]);
+	}
+
+	return {};
 };

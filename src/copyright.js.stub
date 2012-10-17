@@ -1,0 +1,4 @@
+/*! <%= pkg.title || pkg.name %> v<%= pkg.version %>
+* Copyright (c) <%= grunt.template.today("yyyy") %> <%= _.pluck(pkg.contributors, "name").join(", ") %>; Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>
+* Includes Qwery - https://github.com/ded/qwery
+* Copyright (c) 2012 Dustin Diaz & Jacob Thornton; MIT License */

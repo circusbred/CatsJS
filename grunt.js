@@ -7,6 +7,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-jslint');
 
 	grunt.initConfig({
+		meta: {
+			banner: '<%= grunt.template.process(grunt.file.read("src/copyright.js.stub")) %>'
+		},
 		pkg: '<json:package.json>',
 		watch: {
 			files: ['src/*.js', 'test/*'],
@@ -15,6 +18,7 @@ module.exports = function (grunt) {
 		concat: {
 			dist: {
 				src: [
+					'<banner>',
 					'lib/<%= pkg.config.selectorEngine %>/<%= pkg.config.selectorEngine %>.js',
 					'<file_template:src/intro.js.stub>',
 					'src/core.js',
@@ -28,8 +32,9 @@ module.exports = function (grunt) {
 
 		min: {
 			dist: {
-				src: ['<config:concat.dist.dest>'],
-				dest: 'dist/<%= pkg.name %>.min.js'
+				src: ['<banner>', '<config:concat.dist.dest>'],
+				dest: 'dist/<%= pkg.name %>.min.js',
+				separator: '\n'
 			}
 		},
 

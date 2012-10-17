@@ -4,10 +4,16 @@
 	"description": "Cats and maybe dogs.",
 	"version": "0.1.0",
 	"homepage": "https://github.com/circusbred/minimal",
-	"author": {
-		"name": "David Sturley",
-		"url": "http://davidsturley.com/"
-	},
+	"contributors": [
+		{
+			"name": "David Sturley",
+			"url": "http://github.com/circusbred"
+		},
+		{
+			"name": "Stephen Mathieson",
+			"url": "http://github.com/stephenmathieson"
+		}
+	],
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/circusbred/minimal.git"
@@ -18,7 +24,7 @@
 	"licenses": [
 		{
 			"type": "MIT",
-			"url": "https://github.com/cowboy/grunt-jquery-example/blob/master/LICENSE-MIT"
+			"url": "https://github.com/circusbred/minimal/blob/master/LICENSE-MIT"
 		}
 	],
 	"dependencies": {
@@ -27,6 +33,6 @@
 	},
 	"keywords": [],
 	"config": {
-		"selectorEngine": "minimal"
+		"selectorEngine": "qwery"
 	}
 }

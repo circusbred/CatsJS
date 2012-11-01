@@ -7,6 +7,7 @@
 /**
  * Window/Document dimensions
  */
+// TODO legacy
 Library.getWinDimension = function (name) {
 	'use strict';
 

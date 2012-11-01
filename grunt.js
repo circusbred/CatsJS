@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 
 	grunt.initConfig({
 		meta: {
-			banner: '<%= grunt.template.process(grunt.file.read("src/copyright.js.stub")) %>'
+			banner: '<%= grunt.template.process(grunt.file.read("src/copyright.js.tmpl")) %>'
 		},
 		pkg: '<json:package.json>',
 		watch: {
@@ -20,11 +20,23 @@ module.exports = function (grunt) {
 				src: [
 					'<banner>',
 					'lib/<%= pkg.config.selectorEngine %>/<%= pkg.config.selectorEngine %>.js',
-					'<file_template:src/intro.js.stub>',
+					'<file_template:src/intro.js.tmpl>',
+
+					// core
 					'src/core.js',
-					'src/core.*.js',
+					'src/support.js',
+					'src/common.js',
+
+					'src/attr.js',
+					'src/attr.legacy.js',
+
+					'src/class.js',
+
+					'src/css.js',
+					'src/css.legacy.js',
+
 					'src/*.js',
-					'<file_template:src/outro.js.stub>'
+					'<file_template:src/outro.js.tmpl>'
 				],
 				dest: 'dist/<%= pkg.name %>.js'
 			}

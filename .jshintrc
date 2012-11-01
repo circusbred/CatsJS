@@ -1,0 +1,28 @@
+{
+    "node" : false,
+    "es5" : false,
+    "browser" : true,
+
+    "boss" : false,
+    "curly": true,
+    "debug": false,
+    "devel": false,
+    "eqeqeq": true,
+    "evil": true,
+    "forin": true,
+    "immed": true,
+    "laxbreak": false,
+    "newcap": true,
+    "noarg": true,
+    "noempty": false,
+    "nonew": false,
+    "nomen": false,
+    "onevar": true,
+    "plusplus": false,
+    "regexp": false,
+    "undef": true,
+    "sub": true,
+    "strict": false,
+    "white": true,
+    "unused": true
+}

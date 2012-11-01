@@ -1,70 +1,28 @@
-/*global support, proto, rleveltwo */
+/*global proto */
 /*global isString, isObject, hasOwn, push, addToProto */
-/*jslint browser: true, sloppy: true */
+/*jslint browser: true */
 
-var getAttribute = (function () {
-		if (support.getSetAttribute) {
-			return function (node, name) {
-				// Does not normalize to undefined or null
-				// Both values are useful
-				return node.getAttribute(name);
-			};
-		}
+// real browsers
+var getAttribute = function (node, name) {
+		'use strict';
 
-		// IE6/7
-		return function (node, name) {
-			var ret;
+		return node.getAttribute(name);
+	},
+	removeAttribute = function (node, name) {
+		'use strict';
 
-			if (rleveltwo.test(name)) {
-				return node.getAttribute(name, 2);
-			}
+		node.removeAttribute(name);
+	},
+	setAttribute = function (node, name, value) {
+		'use strict';
 
-			ret = node.getAttributeNode(name);
-			return ret && (ret = ret.nodeValue) !== '' ? ret : null;
-		};
-
-	}()),
-	removeAttribute = (function () {
-		if (support.getSetAttribute) {
-			return function (node, name) {
-				node.removeAttribute(name);
-			};
-		}
-
-		// IE6/7
-		return function (node, name) {
-			node.setAttribute(name, '');
-			node.removeAttributeNode(node.getAttributeNode(name));
-
-		};
-
-
-	}()),
-	setAttribute = (function () {
-		if (support.getSetAttribute) {
-			return function (node, name, value) {
-				value = value && value.toString ? value.toString() : value;
-				node.setAttribute(name, value);
-
-			};
-		}
-
-		// IE6/7
-		return function (node, name, value) {
-			var attrNode;
-
-			attrNode = node.getAttributeNode(name);
-			if (!attrNode) {
-				attrNode = document.createAttribute(name);
-				node.setAttributeNode(attrNode);
-			}
-			attrNode.nodeValue = value && value.toString ? value.toString() : value;
-
-		};
-
-	}());
+		value = value && value.toString ? value.toString() : value;
+		node.setAttribute(name, value);
+	};
 
 function attr(node, name, value) {
+	'use strict';
+
 	var key;
 
 	if (isString(name) && value === undefined) {
@@ -89,6 +47,8 @@ function attr(node, name, value) {
 }
 
 proto.attr = function (name, value) {
+	'use strict';
+
 	var node, args, i, length, nodeType,
 		ret = null;
 

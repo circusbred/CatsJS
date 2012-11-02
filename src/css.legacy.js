@@ -1,20 +1,19 @@
 /*global support, trim, hasOwn */
-/*global setCSS: true, getCSS: true */
+/*global setCSS: true, getCSS: true, cssProps: true */
 
 // moved all this stuff here, not needed by real browsers
-/*jslint regexp: true */
-var rnotnumpx = /^-?\d+[^p\s\d]+$/i,
-	ropacity = /opacity=([^)]*)/,
-	ralpha = /alpha\([^)]*\)/i,
-
-	cssHooks = {},
-	cssProps = {
-		'float': support.cssFloat ? 'cssFloat' : 'styleFloat'
-	};
-/*jslint regexp: false */
+var rnotnumpx, ropacity, ralpha, cssHooks;
 
 // IE uses filter for opacity
 if (!support.opacity) {
+
+	/*jslint regexp: true */
+	ropacity = /opacity=([^)]*)/;
+	ralpha = /alpha\([^)]*\)/i;
+	/*jslint regexp: false */
+
+	cssProps['float'] = 'styleFloat';
+
 	cssHooks.opacity = {
 		get: function (node) {
 			'use strict';
@@ -36,21 +35,26 @@ if (!support.opacity) {
 			style.filter = ralpha.test(filter) ? filter.replace(ralpha, opacity) : filter + " " + opacity;
 		}
 	};
+
+	setCSS = function (node, name, value) {
+		'use strict';
+
+		name = cssProps[name] || name;
+		var hook = cssHooks[name];
+		if (hook && hasOwn.call(hook, 'set')) {
+			hook.set(node, value);
+		} else {
+			node.style[name] = value;
+		}
+	};
 }
 
-setCSS = function (node, name, value) {
-	'use strict';
-
-	name = cssProps[name] || name;
-	var hook = cssHooks[name];
-	if (hook && hasOwn.call(hook, 'set')) {
-		hook.set(node, value);
-	} else {
-		node.style[name] = value;
-	}
-};
-
 if (document.documentElement.currentStyle) {
+
+	/*jslint regexp: true */
+	rnotnumpx = /^-?\d+[^p\s\d]+$/i;
+	/*jslint regexp: false */
+
 	getCSS = function (node, name) {
 		'use strict';
 

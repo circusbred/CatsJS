@@ -19,7 +19,7 @@
     "nomen": false,
     "onevar": true,
     "plusplus": false,
-    "regexp": false,
+    "regexp": true,
     "undef": true,
     "sub": true,
     "strict": false,

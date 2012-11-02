@@ -1,8 +1,11 @@
 /*global proto, isString, isObject, hasOwn, push */
-/*jslint browser: true */
 
-var getCSS = function (node, name) {
+var cssProps = {
+		'float': 'cssFloat'
+	},
+	getCSS = function (node, name) {
 		'use strict';
+		name = cssProps[name] || name;
 
 		// TODO is this really what we want?
 		return window.getComputedStyle(node, null)[name] || node.style[name];
@@ -10,6 +13,7 @@ var getCSS = function (node, name) {
 	},
 	setCSS = function (node, name, value) {
 		'use strict';
+		name = cssProps[name] || name;
 
 		node.style[name] = value;
 	};

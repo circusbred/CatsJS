@@ -1,5 +1,4 @@
 /*global Library, each, proto, addToProto, indexOf */
-/*jslint browser: true */
 /**
  * Events
  */

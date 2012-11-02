@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 
 	'use strict';
 
-	grunt.loadNpmTasks('grunt-jslint');
+	grunt.loadNpmTasks('grunt-linter');
 
 	grunt.initConfig({
 		meta: {
@@ -67,19 +67,14 @@ module.exports = function (grunt) {
 			base: '.'
 		},
 
-		jslint: {
+		linter: {
 			files: [
 				'src/*.js'
 			]
-		},
-
-		jslint_directives: {
-			browser: true,
-			todo: true
 		}
 	});
 
-	grunt.registerTask('build', 'jslint concat min server qunit');
+	grunt.registerTask('build', 'linter concat min server qunit');
 
 	grunt.registerTask('default', 'watch');
 };

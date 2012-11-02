@@ -1,5 +1,4 @@
 /*global proto, Library, slice, toArray, selectorEngine, indexOf */
-/*jslint browser: true */
 
 proto.slice = function () {
 	'use strict';

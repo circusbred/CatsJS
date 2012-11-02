@@ -29,7 +29,7 @@
 	],
 	"dependencies": {
 		"grunt": "~0.3.11",
-		"grunt-jslint": "~0.1.8"
+		"grunt-linter": "~0.1.2"
 	},
 	"keywords": [],
 	"config": {

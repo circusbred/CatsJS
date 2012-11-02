@@ -1,6 +1,4 @@
-/*global proto */
-/*global isString, isObject, hasOwn, push, addToProto */
-/*jslint browser: true */
+/*global proto, isString, isObject, hasOwn, push, addToProto */
 
 // real browsers
 var getAttribute = function (node, name) {

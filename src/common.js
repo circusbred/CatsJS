@@ -1,8 +1,8 @@
-/*jslint browser: true */
 /*global Library, library, version, pIndexOf, qwery */
 // Selector
 
-/*jslint regexp: true */
+// WTB exports directive
+/*jshint unused: false */
 
 var arrayProto = Array.prototype,
 	stringProto = String.prototype,

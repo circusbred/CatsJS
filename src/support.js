@@ -1,7 +1,8 @@
-/*jslint browser: true */
 /**
  * Support
  */
+
+/*jshint unused: false */
 var support = (function () {
 	'use strict';
 

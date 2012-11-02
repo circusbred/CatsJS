@@ -1,6 +1,4 @@
-/*global support, proto, rspaces */
-/*global isString, isObject, hasOwn, push, trim, addToProto */
-/*jslint browser: true*/
+/*global proto, rspaces, trim, addToProto */
 
 /**
  * @todo lots of documentation

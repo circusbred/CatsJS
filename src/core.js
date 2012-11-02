@@ -1,5 +1,4 @@
-/*jslint browser: true */
-/*global selectorEngine, version, library, global */
+/*global selectorEngine, library, global */
 
 function Library(selector, root) {
 	'use strict';

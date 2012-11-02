@@ -1,12 +1,9 @@
 /*global Library */
-/*jslint browser: true */
+
 // TODO Library(el).offset();
 // TODO Library(el).position();
 // TODO Library(el).width();
 // TODO Library(el).height();
-/**
- * Window/Document dimensions
- */
 // TODO legacy
 Library.getWinDimension = function (name) {
 	'use strict';

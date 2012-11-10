@@ -1,6 +1,6 @@
 #CatsJS
 
-The goal of this project is to create a light-weight DOM API that optionally supports legacy browsers.
+The goal of this project is to create a light-weight DOM API that optionally supports legacy browsers.  *This project is currently "pre-alpha" and is subject to major changes.*
 
 ## Currently Supported APIs
 
@@ -23,7 +23,8 @@ The goal of this project is to create a light-weight DOM API that optionally sup
 -- fire
 
 - Misc utilities
--- Cats
+-- indexOf (`Array.prototype.indexOf`)
+-- each - `Array.forEach` replacement; *Note: does not set `this` keyword*
 
 
 ##Contributing

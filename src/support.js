@@ -17,6 +17,7 @@ var support = (function () {
 	return {
 		getSetAttribute: div.className !== 't',
 		cssFloat: !!b.style.cssFloat,
+		classList: !!b.classList,
 		opacity: /^0\.55/.test(b.style.opacity)
 	};
 }());

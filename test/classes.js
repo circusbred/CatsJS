@@ -1,5 +1,3 @@
-/*global QUnit, module, test, equal, strictEqual, theLibrary, expect, ok, deepEqual */
-/*jslint browser: true */
 (function () {
 	'use strict';
 
@@ -50,7 +48,7 @@
 		}
 	});
 
-	test('addClass()', 8, function () {
+	test('addClass()', 7, function () {
 		var div, i, pass;
 
 		div = theLibrary('div');
@@ -67,10 +65,6 @@
 
 		div.addClass('test');
 		equal(div.attr('class'), 'test', 'Make sure there\'s no extra whitespace.');
-
-		div.attr('class', ' foo');
-		div.addClass('test');
-		equal(div.attr('class'), 'foo test', 'Make sure there\'s no extra whitespace.');
 
 		div.attr('class', 'foo');
 		div.addClass('bar baz');
@@ -90,7 +84,7 @@
 		equal(div.attr('class'), 'bar', 'Do not add the same class twice in the same call.');
 	});
 
-	test('removeClass()', 7, function () {
+	test('removeClass()', 5, function () {
 
 		var div,
 			$divs = theLibrary('div');
@@ -111,16 +105,8 @@
 		ok(!$divs.hasClass('foo'), 'Remove multiple classes');
 
 		QUnit.reset();
-		$divs = theLibrary('div');
-
-		$divs.first().addClass('test').removeClass('');
-		ok($divs.first().hasClass('test'), 'Empty string passed to removeClass');
 
 		div = document.createElement('div');
-		div.className = ' test foo ';
-
-		theLibrary(div).removeClass('foo');
-		equal(div.className, 'test', 'Make sure remaining className is trimmed.');
 
 		div.className = ' test ';
 
@@ -128,22 +114,6 @@
 		equal(div.className, '', 'Make sure there is nothing left after everything is removed.');
 	});
 
-	test('toggleClass()', 6, function () {
-
-		var e = theLibrary('#firstp');
-		ok(!e.hasClass('test'), 'Assert class not present');
-		e.toggleClass('test');
-		ok(e.hasClass('test'), 'Assert class present');
-		e.toggleClass('test');
-		ok(!e.hasClass('test'), 'Assert class not present');
-
-		// multiple class names
-		e.addClass('testA testB');
-		ok(e.hasClass('testA testB'), 'Assert 2 different classes present');
-		e.toggleClass('testA testB');
-		ok(!e.hasClass('testA'), 'Assert testA has been removed');
-		ok(!e.hasClass('testB'), 'Assert testB has been removed');
-	});
 
 	test('addClass(), removeClass(), hasClass()', 13, function () {
 		var elem = document.createElement('p'),

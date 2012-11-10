@@ -26,11 +26,13 @@ module.exports = function (grunt) {
 					'src/core.js',
 					'src/support.js',
 					'src/common.js',
+					'src/common.legacy.js',
 
 					'src/attr.js',
 					'src/attr.legacy.js',
 
 					'src/class.js',
+					'src/class.legacy.js',
 
 					'src/css.js',
 					'src/css.legacy.js',
@@ -57,8 +59,7 @@ module.exports = function (grunt) {
 		qunit: {
 			all: [
 				'http://localhost:9876/test/index.html',
-				'http://localhost:9876/test/min.html',
-				'http://localhost:9876/test/minimal.html'
+				'http://localhost:9876/test/min.html'
 			]
 		},
 

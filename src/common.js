@@ -23,9 +23,6 @@ var arrayProto = Array.prototype,
 	rspaces = /\s+/,
 	ptrim = String.prototype.trim,
 
-	// Attributes
-	rleveltwo = /(?:href|src|width|height)/i,
-
 	expando = 'Library' + (version || 'test') + Math.random() * 0x0deadbeef;
 
 proto.version = version;
@@ -125,51 +122,26 @@ Library.prototype.each = function () {
 };
 
 // Checks if an item is within an array
-var indexOf = Library.indexOf = (function () {
+var indexOf = Library.indexOf = function (array, searchElement, fromIndex) {
 	'use strict';
-	if (pindexOf) {
-		return function (array, searchElement, fromIndex) {
+	return pindexOf.call(array, searchElement, fromIndex);
+};
 
-			return pindexOf.call(array, searchElement, fromIndex);
-		};
-	}
-
-	return function (array, searchElement, fromIndex) {
-
-		var i,
-			length = array.length;
-
-		for (i = fromIndex ? fromIndex < 0 ? Math.max(0, length + fromIndex) : fromIndex : 0; i < length; i += 1) {
-			if (array[i] === searchElement) {
-				return i;
-			}
-		}
-		return -1;
-	};
-}());
 Library.prototype.indexOf = function () {
 	'use strict';
 	var args = [this];
 	push.apply(args, arguments);
-	return Library.indexOf.apply(this, args);
+	return indexOf.apply(this, args);
 };
 
-var trim = Library.trim = (function () {
+var trim = Library.trim = function (str) {
 	'use strict';
-
-	if (ptrim) {
-		return function (str) {
-			return ptrim.call(str);
-		};
-	}
-	return function (str) {
-		return str.replace(rtrim, '');
-	};
-}());
+	return ptrim.call(str);
+};
 
 Library.prototype.trim = function () {
 	'use strict';
 	var args = [this];
 	push.apply(args, arguments);
-	return Library.trim.apply(this, args);
+	return trim.apply(this, args);
 };

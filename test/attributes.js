@@ -1,5 +1,3 @@
-/*global QUnit, module, test, equal, strictEqual, theLibrary, expect, document, ok */
-/*jslint vars:true */
 (function () {
 	'use strict';
 
@@ -104,7 +102,7 @@
 	});
 
 	test("attr() - object", 9, function () {
-		var name, $div,
+		var name,
 			div = document.createElement('div'),
 			attrs = {
 				'data-cats': 'yes',
@@ -130,13 +128,9 @@
 
 	test("attr() - set", 14, function () {
 
-		var i, $elem,
+		var i, table, td,
 			div = theLibrary('div').attr('foo', 'bar'),
-			attributeNode = document.createAttribute('irrelevant'),
-			commentNode = document.createComment('some comment'),
-			textNode = document.createTextNode('some text'),
-			fail = false,
-			elems = [commentNode, textNode, attributeNode];
+			fail = false;
 
 		for (i = 0; i < div.length; i += 1) {
 			if (div[i].getAttribute('foo') !== 'bar') {
@@ -163,7 +157,8 @@
 		equal(theLibrary('#foo').attr('contenteditable'), 'true', 'Enumerated attributes are set properly');
 
 
-		var table = theLibrary('#table1'), td = theLibrary('td', table).first();
+		table = theLibrary('#table1');
+		td = theLibrary('td', table).first();
 		td.attr('rowspan', '2');
 		equal(td[0].rowSpan, 2, 'Check rowspan is correctly set');
 		td.attr('colspan', '2');
@@ -186,7 +181,7 @@
 		equal(theLibrary('#mark').removeAttr('class')[0].className, '', 'remove class');
 		equal(theLibrary('#form1').removeAttr('id').attr('id'), null, 'Remove id');
 
-		theLibrary('#foo, #table1, #text1').each(function (node, key, list) {
+		theLibrary('#foo, #table1, #text1').each(function (node) {
 			var $node = theLibrary(node).removeAttr('id');
 			equal($node.attr('id'), null, 'Remove id');
 		});

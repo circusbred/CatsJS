@@ -1,0 +1,48 @@
+{
+    "node" : false,
+    "es5" : false,
+    "browser" : true,
+
+    "boss" : false,
+    "curly": true,
+    "debug": false,
+    "devel": false,
+    "eqeqeq": true,
+    "evil": true,
+    "forin": true,
+    "immed": true,
+    "laxbreak": false,
+    "newcap": true,
+    "noarg": true,
+    "noempty": false,
+    "nonew": false,
+    "nomen": false,
+    "onevar": true,
+    "plusplus": false,
+    "regexp": true,
+    "undef": true,
+    "sub": true,
+    "strict": false,
+    "white": true,
+    "unused": true,
+
+    "predef": {
+        "theLibrary": false,
+
+        "asyncTest"      : false,
+        "deepEqual"      : false,
+        "equal"          : false,
+        "expect"         : false,
+        "module"         : false,
+        "notDeepEqual"   : false,
+        "notEqual"       : false,
+        "notStrictEqual" : false,
+        "ok"             : false,
+        "QUnit"          : false,
+        "raises"         : false,
+        "start"          : false,
+        "stop"           : false,
+        "strictEqual"    : false,
+        "test"           : false
+    }
+}

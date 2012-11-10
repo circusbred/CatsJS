@@ -1,5 +1,3 @@
-/*global QUnit, module, test, equal, strictEqual, theLibrary, expect, ok, cats, deepEqual */
-/*jslint browser: true, vars:true */
 (function () {
 	'use strict';
 	/**
@@ -68,7 +66,7 @@
 	test("noConflict()", 1, function () {
 
 		var $$ = window.cats;
-		cats.noConflict(true);
+		window.cats.noConflict(true);
 		equal(window.cats, undefined, 'noConflict deep removes theLibrary from window');
 
 		window.cats = $$;
@@ -182,6 +180,8 @@
 
 	test('theLibrary.each', 11, function () {
 
+		var total, stylesheet_count;
+
 		theLibrary.each([0, 1, 2], function (n, i) {
 			equal(i, n, 'Check array iteration');
 		});
@@ -197,7 +197,7 @@
 			equal(n, i, 'Check object iteration');
 		});
 
-		var total = 0;
+		total = 0;
 		theLibrary.each([1, 2, 3], function (v) {
 			total += v;
 		});
@@ -212,8 +212,8 @@
 		});
 		equal(total, 6, 'Looping over an object');
 
-		var stylesheet_count = 0;
-		theLibrary.each(document.styleSheets, function (i) {
+		stylesheet_count = 0;
+		theLibrary.each(document.styleSheets, function () {
 			stylesheet_count += 1;
 		});
 		equal(stylesheet_count, document.styleSheets.length, 'should not throw an error in IE while looping over document.styleSheets and return proper amount');

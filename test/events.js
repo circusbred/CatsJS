@@ -1,5 +1,3 @@
-/*global QUnit, module, test, equal, strictEqual, theLibrary, expect, ok, deepEqual, start, stop */
-/*jslint browser: true, vars:true */
 (function () {
 	'use strict';
 
@@ -89,9 +87,9 @@
 
 	test('off() with arguments', function () {
 		expect(3);
-		var $a = theLibrary('#link1');
-		var cnt = 0;
-		var click = function (e) {
+		var $a = theLibrary('#link1'),
+			cnt = 0,
+			click = function () {
 				deepEqual($a[0], this, 'Click context is the element');
 				cnt += 1;
 			};
@@ -108,7 +106,7 @@
 
 		var $a = theLibrary('#link1'),
 			cnt = 0,
-			click = function (e) {
+			click = function () {
 				deepEqual($a[0], this, 'Click context is the element');
 				cnt += 1;
 			};
@@ -124,9 +122,9 @@
 	});
 
 	test('fire()', function () {
-		var $a = theLibrary('#link1');
-		var cnt = 0;
-		var click = function () {
+		var $a = theLibrary('#link1'),
+			cnt = 0,
+			click = function () {
 				cnt += 1;
 			};
 		$a.on('click', click);
@@ -141,13 +139,13 @@
 
 		var events,
 			$a = theLibrary('#link1'),
-			click = function (e) {
+			click = function () {
 				return true;
 			},
-			focus = function (e) {
+			focus = function () {
 				return true;
 			},
-			blur = function (e) {
+			blur = function () {
 				return true;
 			};
 

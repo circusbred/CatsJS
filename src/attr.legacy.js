@@ -1,9 +1,12 @@
-/*global support, rleveltwo, addToProto */
+/*global support, addToProto */
 /*global getAttribute: true, setAttribute: true, removeAttribute: true */
 /*jslint browser: true */
 
 // IE6/7
 if (!support.getSetAttribute) {
+
+	// Attributes
+	var rleveltwo = /(?:href|src|width|height)/i;
 
 	getAttribute = function (node, name) {
 		'use strict';

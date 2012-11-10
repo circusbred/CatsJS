@@ -1,5 +1,3 @@
-/*global QUnit, module, test, equal, strictEqual, theLibrary, expect, ok, deepEqual, start, stop */
-/*jslint browser: true */
 (function () {
 	'use strict';
 

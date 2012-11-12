@@ -1,3 +1,4 @@
+/*global module, test, equal, theLibrary, deepEqual, ok*/
 (function () {
 	'use strict';
 	/**

@@ -64,10 +64,28 @@ function setHTML(node, html) {
 function append(node, html) {
 	'use strict';
 
-	// TODO should move nodes -- to behave closer to native DOM .appendChild
-	var nodeHTML = getHTML(node);
+	var nodeHTML, index, length;
 
-	setHTML(node, nodeHTML + html);
+	if (typeof html === 'string') {
+
+		nodeHTML = getHTML(node);
+		setHTML(node, nodeHTML + html);
+		return;
+
+	}
+
+	if (html.length) {
+		// assume it's a NodeList
+		for (index = 0, length = html.length; index < length; index += 1) {
+			// assume it's an HTMLElement
+			node.appendChild(html[index]);
+		}
+
+	} else {
+		// assume it's an HTMLElement
+		node.appendChild(html);
+
+	}
 }
 
 /**
@@ -80,10 +98,30 @@ function append(node, html) {
 function prepend(node, html) {
 	'use strict';
 
-	// TODO should move nodes -- to behave closer to native DOM .appendChild
-	var nodeHTML = getHTML(node);
+	var nodeHTML, index, length;
 
-	setHTML(node, html + nodeHTML);
+	if (typeof html === 'string') {
+
+		nodeHTML = getHTML(node);
+		setHTML(node, html + nodeHTML);
+		return;
+
+	}
+
+	if (html.length) {
+		// assume it's a NodeList
+		for (index = 0, length = html.length; index < length; index += 1) {
+			// assume it's an HTMLElement
+			node.insertBefore(html[index], node.firstChild);
+		}
+
+	} else {
+		// assume it's an HTMLElement
+		node.insertBefore(html[index], node.firstChild);
+
+	}
+
+
 }
 
 /**
@@ -95,7 +133,11 @@ function prepend(node, html) {
 proto.html = function (html) {
 	'use strict';
 
-	// TODO exceptions, this.length could be 0
+	// unnecessary protection
+	if (!this.length) {
+		return this;
+	}
+
 	if (html === undefined) {
 		return getHTML(this[0]);
 	}
@@ -135,6 +177,7 @@ proto.append = function (html) {
 	for (i = 0; i < length; i += 1) {
 		append(this[i], html);
 	}
+
 	return this;
 };
 
@@ -154,5 +197,6 @@ proto.prepend = function (html) {
 	for (i = 0; i < length; i += 1) {
 		prepend(this[i], html);
 	}
+
 	return this;
 };

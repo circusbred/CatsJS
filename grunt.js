@@ -70,7 +70,8 @@ module.exports = function (grunt) {
 
 		linter: {
 			files: [
-				'src/*.js'
+				'src/*.js',
+				'test/*.js'
 			]
 		}
 	});

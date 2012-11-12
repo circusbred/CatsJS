@@ -1,3 +1,4 @@
+/*global module, test, equal, expect, theLibrary, strictEqual*/
 (function () {
 	'use strict';
 

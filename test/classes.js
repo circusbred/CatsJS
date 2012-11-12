@@ -1,3 +1,4 @@
+/*global module, test, equal, theLibrary, ok, QUnit*/
 (function () {
 	'use strict';
 

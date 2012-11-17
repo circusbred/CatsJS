@@ -55,16 +55,38 @@ function setHTML(node, html) {
 }
 
 /**
+ * Creates a Document Fragment which contains the provided nodes
+ *
+ * lolololol remember these things?
+ *
+ * @param  {Array|NodeList}   nodes The nodes to insert into the fragment
+ * @return {DocumentFragment}       The fragment
+ */
+function createFragment(nodes) {
+	'use strict';
+
+	var index,
+		length = nodes.length,
+		fragment = document.createDocumentFragment();
+
+	for (index = 0; index < length; index += 1) {
+		fragment.appendChild(nodes[index]);
+	}
+
+	return fragment;
+}
+
+/**
  * Appends a block of HTML to a node
  *
  * @private
  * @param  {HTMLElement} node [description]
- * @param  {String}      html [description]
+ * @param  {String|List} html [description]
  */
 function append(node, html) {
 	'use strict';
 
-	var nodeHTML, index, length;
+	var nodeHTML, fragment;
 
 	if (typeof html === 'string') {
 
@@ -76,10 +98,9 @@ function append(node, html) {
 
 	if (html.length) {
 		// assume it's a NodeList
-		for (index = 0, length = html.length; index < length; index += 1) {
-			// assume it's an HTMLElement
-			node.appendChild(html[index]);
-		}
+		fragment = createFragment(html);
+		// add as last child
+		node.appendChild(fragment);
 
 	} else {
 		// assume it's an HTMLElement
@@ -93,35 +114,34 @@ function append(node, html) {
  *
  * @private
  * @param  {HTMLElement} node [description]
- * @param  {String}      html [description]
+ * @param  {String|List} html [description]
  */
 function prepend(node, html) {
 	'use strict';
 
-	var nodeHTML, index, length;
+	var nodeHTML, fragment;
 
+	// handle `'<div class="cats"></div>'`
 	if (typeof html === 'string') {
 
 		nodeHTML = getHTML(node);
 		setHTML(node, html + nodeHTML);
+
 		return;
 
 	}
 
 	if (html.length) {
 		// assume it's a NodeList
-		for (index = 0, length = html.length; index < length; index += 1) {
-			// assume it's an HTMLElement
-			node.insertBefore(html[index], node.firstChild);
-		}
+		fragment = createFragment(html);
+		// add as first child
+		node.insertBefore(fragment, node.firstChild);
 
 	} else {
 		// assume it's an HTMLElement
-		node.insertBefore(html[index], node.firstChild);
+		node.insertBefore(html, node.firstChild);
 
 	}
-
-
 }
 
 /**
@@ -135,7 +155,7 @@ proto.html = function (html) {
 
 	// unnecessary protection
 	if (!this.length) {
-		return this;
+		return '';
 	}
 
 	if (html === undefined) {
@@ -164,10 +184,11 @@ proto.remove = function () {
 /**
  * Appends a block of HTML to the current node
  *
- * @param  {String} html  The HTML to append
- * @return {Library}      The Library instance of the node
+ * @param  {String|list} html The HTML to append
+ * @return {Library}          The Library instance of the node
  */
 // TODO support multiple arguments? useful if you want to $el.append.apply($el, arrayOfNodes)
+// apply is slow - just pass in a list instead
 proto.append = function (html) {
 	'use strict';
 
@@ -184,10 +205,11 @@ proto.append = function (html) {
 /**
  * Prepends a block of HTML to the current node
  *
- * @param  {String} html  The HTML to prepend
- * @return {Library}      The Library instance of the node
+ * @param  {String|list} html The HTML to prepend
+ * @return {Library}          The Library instance of the node
  */
 // TODO support multiple arguments? useful if you want to $el.prepend.apply($el, arrayOfNodes)
+// no need to apply, just pass in a list
 proto.prepend = function (html) {
 	'use strict';
 

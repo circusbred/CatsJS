@@ -1,7 +1,19 @@
-/*global selectorEngine, library, global */
+/*global selectorEngine, library, global, readyPromise */
 
+/**
+ * The Library entry point/constructor
+ *
+ * When provided a function, will execute said function either on DOM ready, window load or if both have already occured, will execute "later".
+ *
+ * @param {String|Node|Function} selector The selector or function
+ * @param {String|Node}          root     The context for the selector
+ */
 function Library(selector, root) {
 	'use strict';
+
+	if (typeof selector === 'function') {
+		return readyPromise(selector);
+	}
 
 	// Self-instantiate if not instantiated
 	if (!(this instanceof Library)) {

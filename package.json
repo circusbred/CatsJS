@@ -3,7 +3,7 @@
 	"title": "Cats.JS",
 	"description": "Cats and maybe dogs.",
 	"version": "0.1.0",
-	"homepage": "https://github.com/circusbred/minimal",
+	"homepage": "https://github.com/circusbred/CatsJS",
 	"contributors": [
 		{
 			"name": "David Sturley",
@@ -16,15 +16,15 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/circusbred/minimal.git"
+		"url": "git://github.com/circusbred/CatsJS.git"
 	},
 	"bugs": {
-		"url": "https://github.com/circusbred/minimal/issues"
+		"url": "https://github.com/circusbred/CatsJS/issues"
 	},
 	"licenses": [
 		{
 			"type": "MIT",
-			"url": "https://github.com/circusbred/minimal/blob/master/LICENSE-MIT"
+			"url": "https://github.com/circusbred/CatsJS/blob/master/LICENSE-MIT"
 		}
 	],
 	"dependencies": {
@@ -34,5 +34,8 @@
 	"keywords": [],
 	"config": {
 		"selectorEngine": "qwery"
+	},
+	"scripts": {
+		"test": "grunt build"
 	}
 }

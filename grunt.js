@@ -13,7 +13,7 @@ module.exports = function (grunt) {
 		pkg: '<json:package.json>',
 		watch: {
 			files: ['src/*.js', 'test/*'],
-			tasks: 'build'
+			tasks: 'linter'
 		},
 		concat: {
 			dist: {
@@ -36,6 +36,8 @@ module.exports = function (grunt) {
 
 					'src/css.js',
 					'src/css.legacy.js',
+
+					'src/native-methods.js',
 
 					'src/*.js',
 					'<file_template:src/outro.js.tmpl>'
